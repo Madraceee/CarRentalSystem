@@ -1,0 +1,58 @@
+.landingPage{
+    background-image: linear-gradient(to bottom,#544D87 50%,#2A1B3D);
+    color: white;
+
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    text-align: center;
+}
+
+.landingPage--herocard{
+    background-image: url("/public/LandingPageBg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.landingPage--herocard > h1{
+    margin: 3rem auto;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 6rem;
+    line-height: 58px;
+
+    color: #FFFFFF;
+}
+
+.landingPage--info{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+
+    margin: 7% 3%;
+}
+
+.landingPage--info > div{
+    width: 50%;
+}
+
+.landingPage--info h2{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 3.5rem;
+    line-height: 44px;
+}
+
+.landingPage--info span{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+}
+
+.landingPage--info li{
+    list-style-type: armenian;
+}

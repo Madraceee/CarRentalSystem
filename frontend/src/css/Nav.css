@@ -1,0 +1,13 @@
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: #44318D;
+}
+
+.nav--links  p{
+    display: inline-block;
+    margin: 1rem;
+    font-size: 1.5rem;
+}

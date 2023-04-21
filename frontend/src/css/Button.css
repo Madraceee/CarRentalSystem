@@ -1,0 +1,30 @@
+.Button{
+    display: inline-block;
+    transition: transform 0.3s ;
+}
+
+.Button:hover{    
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.Button.medium{
+    max-width: 5rem;
+    max-height: 2rem;
+    font-size: 1rem;
+    padding: 0.5rem 1.3rem;
+    border-radius: 0.5rem;
+}
+
+.Button.small{
+    max-width: 3rem;
+    max-height: 1rem;
+    font-size: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.2rem;
+}
+
+.bgPinkTextWhite{
+    background-color: #D83787;
+    color: #FFF;
+}
