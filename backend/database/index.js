@@ -9,8 +9,10 @@ const connection = sql.createConnection({
 });
 
 connection.connect((err)=>{
-    if(err)
-        throw err;
+    if(err){
+        console.log(err);
+        process.exit();
+    }
     console.log("SQL CONNECTED TO DATABASE");
 });
 
