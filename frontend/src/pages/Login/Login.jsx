@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import "./Login.css";
 import Button from '../../components/Button';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
 
@@ -17,7 +18,7 @@ function Login() {
     const [fileRegistration,setFileRegistration] = useState(null);
 
     //For animation
-    const [left,setLeft] = useState(true);
+    const [left,setLeft] = useState(false);
 
 
     const submitLoginCredentials = () =>{
@@ -27,6 +28,11 @@ function Login() {
     const submitRegistrationCredentials = () =>{
         console.log(nameRegistration,emailRegistration,passwordRegistration,phoneRegistration,typeRegistration,fileRegistration);
     } 
+
+    const navigate = useNavigate();
+    const handleBack = () =>{
+        navigate("/");
+    }
 
     return (
         <div className='ctn'>
@@ -117,6 +123,7 @@ function Login() {
                 BtnText={"Back"}
                 size={"medium"}
                 color="Pink"
+                method={handleBack}
             />
         </div>
         
