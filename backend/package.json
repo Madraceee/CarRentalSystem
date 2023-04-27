@@ -10,8 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "Buffer": "^0.0.0",
     "dotenv": "^16.0.3",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "url": "^0.11.0",
+    "url-search-params": "^1.1.0"
   },
   "type": "module"
 }
