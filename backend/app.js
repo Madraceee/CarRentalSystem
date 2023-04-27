@@ -1,10 +1,9 @@
 import http from "http"
+import { PORT } from "./configs/server.js";
+
 import { URLSearchParams } from "url";
 import url from 'node:url';
 import publicRoutes from "./controllers/public/publicRouter.js";
-
-
-const PORT = 12345;
 
 const server  = http.createServer((req,res)=>{
     
