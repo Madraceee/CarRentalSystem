@@ -1,7 +1,13 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import "./Login.css";
 import Button from '../../components/Button';
+import Overlay from '../../components/Overlay';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import { LOGIN_URL } from '../APIURL';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/userSlice';
 
 function Login() {
 
@@ -20,9 +26,51 @@ function Login() {
     //For animation
     const [left,setLeft] = useState(false);
 
+    //Overlay status
+    const [showOverlay,setShowOverlay] = useState(false);
+    const [status,setStatus] = useState(false);
+    const [overlayMsg,setOverlayMsg] = useState("");
 
-    const submitLoginCredentials = () =>{
-        console.log(emailLogin,passowordLogin);
+    useEffect(()=>{
+        setEmailLogin("");
+        setPasswordLogin("");
+    },[showOverlay])
+
+    const dispatch = useDispatch();
+    const submitLoginCredentials = async (e) =>{
+        e.preventDefault();
+        try {
+                // Encrypt data
+                // For later
+                const response = await axios.options(LOGIN_URL)
+                    .then(  () =>{
+                        return axios.post(LOGIN_URL,{
+                            emailId: emailLogin,
+                            password: passowordLogin
+                        })
+                    })
+                    .catch(err=>{
+                        throw err;
+                    })
+
+                if(response.data.msg === "Login Valid"){
+                   setStatus(true);
+                   setOverlayMsg("Login Successful");
+                   setShowOverlay(true);
+                   
+                   dispatch(login(
+                    {   username: "",
+                        userId:response.data.userId,
+                        token:response.data.token 
+                    }));
+                }
+          } catch (error) {
+                if(error.response.request.status === 401){
+                    setStatus(false);
+                    setOverlayMsg("Login Unsuccessful");
+                    setShowOverlay(true);
+                }
+          }
     }   
 
     const submitRegistrationCredentials = () =>{
@@ -36,13 +84,21 @@ function Login() {
 
     return (
         <div className='ctn'>
+            { showOverlay? 
+            (
+                <Overlay 
+                status = {status}
+                msg = {overlayMsg}
+                handleBack = {()=>setShowOverlay(false)}
+            />
+            ): null}            
             <div className="box">
                 <div 
                     className="cover" style={left ? {left:"0%" }: {left:"50%" }}>
                     <p
                         className='cover-text'
                         onClick={()=>setLeft(!left)}
-                    >{left? "Click to Register" : "Click to Login"}</p>   
+                    >{left? "Click to Login" : "Click to Register"}</p>   
                 </div>
                 <div className='login-ctn'>
                     <p className='heading'>Login</p>                   
@@ -115,7 +171,7 @@ function Login() {
                         BtnText={"Create Account"}
                         size={"medium"}
                         color="Pink"
-                        method={submitRegistrationCredentials}
+                        method={(e)=>submitRegistrationCredentials(e)}
                     />
                 </div>
             </div>
