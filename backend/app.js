@@ -3,9 +3,17 @@ import { PORT } from "./configs/server.js";
 
 import { URLSearchParams } from "url";
 import url from 'node:url';
-import publicRoutes from "./controllers/public/publicRouter.js";
+import routes from "./controllers/router.js";
 
 const server  = http.createServer((req,res)=>{
+
+    if (req.method === 'OPTIONS') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.writeHead(200);
+        res.end();
+      }
     
     //Get Path name
     var parsedURL = url.parse(req.url,true);
@@ -34,7 +42,7 @@ const server  = http.createServer((req,res)=>{
         }
 
         // Assign route function based on path
-        let route = typeof publicRoutes[path] !== "undefined" ? publicRoutes[path] : publicRoutes["notFound"];
+        let route = typeof routes[path] !== "undefined" ? routes[path] : routes["notFound"];
 
         let data = {
             path : path,
@@ -54,7 +62,10 @@ const server  = http.createServer((req,res)=>{
         if(method === "post"){
             data.data = dataBuffer.toString();
         }
-        route(data,res);
+
+        if(method !== "options"){
+            route(data,res);
+        }        
     })
 });
 
