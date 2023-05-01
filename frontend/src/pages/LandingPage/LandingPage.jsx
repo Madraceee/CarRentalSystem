@@ -1,8 +1,8 @@
 import React from 'react'
 
-import "../css/LandingPage.css";
-import Button from '../components/Button';
-import Nav from "../components/Nav";
+import "./LandingPage.css";
+import Button from '../../components/Button';
+import Nav from "../../components/Nav";
 
 
 function LandingPage() {

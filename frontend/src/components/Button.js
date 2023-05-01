@@ -7,8 +7,7 @@ const Button = ({BtnText,size,color,method})=>{
     if(color === "Pink"){
         style = "bgPinkTextWhite";
     }
-
-    console.log("Style:"+style);
+    
     return (
         <div className={"Button "+size+" "+style} onClick={method}>
             {BtnText}
