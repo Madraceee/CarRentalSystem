@@ -1,0 +1,32 @@
+.carcard{
+    display: inline-block;
+    transition: transform 0.3s ;
+    max-width: 10rem;
+    max-height: 5rem;
+    font-size: 1rem;
+    padding: 0.5rem 1.3rem;
+    border-radius: 0.5rem;
+}
+
+.carcard:hover{    
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.carcard.small{
+    max-width: 5rem;
+    max-height: 2rem;
+    font-size: 1rem;
+    padding: 0.5rem 1.3rem;
+    border-radius: 0.5rem;
+}
+
+.bgWhite{
+    background-color: #fff;
+    color: #000;
+}
+
+.bgPinkTextWhite{
+    background-color: #D83787;
+    color: #FFF;
+}
