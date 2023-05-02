@@ -1,0 +1,40 @@
+.overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.384);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 10;
+}
+
+.overlay-msg{
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    min-height: 25vh;
+    width: 50%;
+}
+
+.overlay-msg.true{
+    background-color: rgb(86, 245, 112);
+}
+
+.overlay-msg.false{
+    background-color: rgb(245, 35, 35);
+}
+
+.overlay-msg > h3{
+    font-size: 50px;
+    margin: 1rem auto;
+}
+
+.overlay-msg > span{
+    display: block;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
