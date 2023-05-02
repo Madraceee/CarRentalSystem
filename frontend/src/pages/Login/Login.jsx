@@ -42,7 +42,7 @@ function Login() {
                     <p
                         className='cover-text'
                         onClick={()=>setLeft(!left)}
-                    >{left? "Click to Register" : "Click to Login"}</p>   
+                    >{left? "Click to Login" : "Click to Register"}</p>   
                 </div>
                 <div className='login-ctn'>
                     <p className='heading'>Login</p>                   

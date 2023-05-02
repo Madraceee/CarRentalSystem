@@ -3,6 +3,7 @@ import React from 'react'
 import "./LandingPage.css";
 import Button from '../../components/Button';
 import Nav from "../../components/Nav";
+import Footer from '../../components/Footer';
 
 
 function LandingPage() {
@@ -40,6 +41,7 @@ function LandingPage() {
                 />
             </div>
         </div>
+        <Footer />
     </div>
   )
 }

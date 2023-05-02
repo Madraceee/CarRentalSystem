@@ -1,6 +1,12 @@
 .Button{
-    display: inline-block;
+    display: inline-flex;
     transition: transform 0.3s ;
+    align-items: center;
+    justify-content: center;
+}
+
+.Button span{
+    vertical-align: middle;
 }
 
 .Button:hover{    
@@ -18,7 +24,7 @@
 
 .Button.small{
     max-width: 3rem;
-    max-height: 1rem;
+    min-height: 1rem;
     font-size: 0.5rem;
     padding: 0.3rem 0.8rem;
     border-radius: 0.2rem;
@@ -27,4 +33,11 @@
 .bgPinkTextWhite{
     background-color: #D83787;
     color: #FFF;
+    box-shadow: 1px 1px rgba(216, 55, 151, 0.8)
+}
+
+.bgWhiteTextBlack{
+    background-color: rgb(177, 175, 175);
+    color: rgb(29, 29, 29);
+    
 }
