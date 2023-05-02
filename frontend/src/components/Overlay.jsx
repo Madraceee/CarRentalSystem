@@ -11,7 +11,7 @@ function Overlay({status,msg,handleBack}) {
                 <Button
                     BtnText={"Back"}
                     size={"medium"}
-                    color="Pink"
+                    color="White"
                     method={handleBack}
                 />
             </div>

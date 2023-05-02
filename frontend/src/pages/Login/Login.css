@@ -15,8 +15,9 @@
 }
 
 .box{
-    transform: translateY(-10%);
+    transform: translateY(-5%);
     width: 60%;
+    padding: 20px 10px;
     display: flex;
     align-items: center;
     border: 5px solid black;
@@ -38,6 +39,7 @@
 
 .cover-text{
     font-size: 51px;
+    transition: transform 0.3s ease-in;
 }
 
 .cover-text:hover{
@@ -52,6 +54,10 @@
     align-items: center;
     gap: 1rem;
     text-align: center;
+}
+
+.login-ctn{
+    transform: translateY(-10%);
 }
 
 .heading{

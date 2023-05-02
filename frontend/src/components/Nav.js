@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from './Button'
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 import "../css/Nav.css";
 
@@ -15,9 +15,8 @@ function Nav(){
     <div className='nav'>
         <img />
         <div className='nav--links'>
-            <p>About</p>
-            <p>FAQ</p>
-            <p>Contact</p>
+            <Link to="/">Home</Link>
+            <Link to="/catalog">Catalog</Link>
         </div>
         <Button
             BtnText={"Login"}

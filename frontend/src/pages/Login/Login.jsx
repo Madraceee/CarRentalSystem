@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react'
 import "./Login.css";
 import Button from '../../components/Button';
 import Overlay from '../../components/Overlay';
+import Nav from '../../components/Nav';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 

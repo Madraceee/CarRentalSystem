@@ -16,6 +16,7 @@
 
 .Button.medium{
     max-width: 5rem;
+    min-height: 1.5rem;
     max-height: 2rem;
     font-size: 1rem;
     padding: 0.5rem 1.3rem;
