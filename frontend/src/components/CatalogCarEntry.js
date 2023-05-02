@@ -6,24 +6,33 @@ const CatalogCarEntry = ({carname, imgurl, type, location, condition, price, siz
 
     return (
         <div className="carcard">
-            <img src={imgurl} style={{maxWidth: 50, maxHeight: 50}} />
-            <p> {carname} </p>
-            <p> {price} </p><br />
-            <p>Type: {type}</p><br />
-            <p>Location: {location}</p><br />
-            <p>Condition: {condition}</p><br />
-            <Button
-                BtnText={"Book Now"}
-                size={"medium"}
-                color="Pink"
-                // method={handleBack}
-            />
-            <Button
-                BtnText={"Reserve"}
-                size={"medium"}
-                color="Pink"
-                // method={handleBack}
-            />
+            <div>
+                <img src={imgurl} alt="Car image" className='carcard-image'/>
+            </div>
+            <div className="carcard-details">
+                <span className='carcard-carname'>{carname}</span>
+                <span>Type: {type}</span>
+                <span className="carlisting-location">Location: {location}</span>
+                <span>Condition: {condition}</span>
+            </div>
+            <div className='carcard-price'>
+                <span>Price</span>
+                <span>{price}/hr</span>
+            </div>
+            <div className='cardcard-btnctn'>                
+                <Button
+                    BtnText={"Book Now"}
+                    size={"medium"}
+                    color="Pink"
+                    // method={handleBack}
+                />
+                <Button
+                    BtnText={"Reserve"}
+                    size={"medium"}
+                    color="Pink"
+                    // method={handleBack}
+                />
+            </div>         
         </div>
     );
 }
