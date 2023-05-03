@@ -6,6 +6,7 @@ import {
 import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/Login/Login';
 import Catalog from "./pages/Catalog/Catalog"
+import UserProfile from "./pages/UserProfile/UserProfile"
 
 function App() {
   
