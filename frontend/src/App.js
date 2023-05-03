@@ -21,6 +21,10 @@ function App() {
     {
       path: "/catalog",
       element: <Catalog />
+    },
+    {
+      path: "/userprofile",
+      element: <UserProfile />
     }
   ])
   return (
