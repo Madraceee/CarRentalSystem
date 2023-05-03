@@ -1,18 +1,18 @@
-import LoginSchema from "../../database/model/loginSchema.js";
-import Login from "../../database/repository/login.js";
+import ProfileSchema from "../../database/model/profileSchema.js";
+import Profile from "../../database/repository/profile.js";
 
 import { JWT_SECRET } from "../../configs/server.js";
 import jwt from 'jsonwebtoken';
 
 async function loginRoute(data,res){
     const jsonData = JSON.parse(data.data);
-    const loginObj = LoginSchema.create(jsonData);
+    const loginObj = ProfileSchema.create(jsonData);
 
     try{
-        const payload = await Login.login(loginObj); 
+        const payload = await Profile.login(loginObj); 
 
         if(payload.msg === "Login Valid"){
-            var token = jwt.sign({id: payload.userId},JWT_SECRET,{
+            var token = jwt.sign({emailId: payload.emailId},JWT_SECRET,{
                 expiresIn: 86400
             });        
             payload.token = token;

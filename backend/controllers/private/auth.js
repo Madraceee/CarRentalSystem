@@ -18,7 +18,6 @@ async function auth(data,res){
     
     try{
         const decoded = jwt.verify(token,JWT_SECRET);
-        console.log(decoded);
         return {auth:true, data: decoded}
     }catch (err) {
         res.writeHead(401);
