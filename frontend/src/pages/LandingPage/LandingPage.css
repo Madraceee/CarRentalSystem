@@ -5,12 +5,14 @@
     font-family: 'Courier New', Courier, monospace;
     font-weight: 500;
     text-align: center;
+    width: 100%;
 }
 
 .landingPage--herocard{
     background-image: url("/public/LandingPageBg.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
+    background-position: center center ;
     height: 100vh;
 }
 
@@ -29,9 +31,10 @@
 .landingPage--info{
     display: flex;
     flex-direction: row;
-    height: 100vh;
-
-    margin: 7% 3%;
+    padding: 10% 0;
+    margin: 0 5%;
+    margin-top: 5%;
+    transform: translateY(-10%);
 }
 
 .landingPage--info > div{
@@ -54,5 +57,5 @@
 }
 
 .landingPage--info li{
-    list-style-type: armenian;
+    list-style-type: none;
 }

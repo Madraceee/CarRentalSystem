@@ -12,7 +12,7 @@ async function loginRoute(data,res){
         const payload = await Profile.login(loginObj); 
 
         if(payload.msg === "Login Valid"){
-            var token = jwt.sign({id: payload.userId},JWT_SECRET,{
+            var token = jwt.sign({emailId: payload.emailId},JWT_SECRET,{
                 expiresIn: 86400
             });        
             payload.token = token;

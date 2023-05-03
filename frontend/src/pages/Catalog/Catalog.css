@@ -1,0 +1,157 @@
+.catalog-ctn{
+    background-image: linear-gradient(to bottom,#544D87 50%,#2A1B3D);
+    color: white;
+
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+
+    width: 100%;
+    height: 100vh;
+}
+
+.catalog-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding: 0 1rem;
+}
+
+.catalog-options{
+    width: 20%;
+    height: 60vh;
+    padding: 2rem 1rem;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+}
+
+.catalog-options h3{
+    margin: 0 auto;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.catalog-options > h3{
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.catalog-options > div{
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.catalog-display{
+    width: 70%;
+    height: 80vh;
+    padding: 1rem;
+    border: 2px solid #261142 ;
+    border-radius: 10px;
+    overflow-y: scroll;
+}
+
+.catalog-display::-webkit-scrollbar {
+  width: 10px;
+  margin: 1rem;
+}
+
+.catalog-display::-webkit-scrollbar-track {
+  background: none;
+}
+
+
+.catalog-display::-webkit-scrollbar-thumb {
+  background: #2A1B3D;
+  border: 1px solid #2A1B3D;
+  border-radius: 100px;
+  background-clip: content-box;
+}
+
+
+/* Select CSS */
+.custom-select {
+    position: relative;
+    width: 80%;
+    margin: 0.5rem auto;
+}
+
+.custom-select select {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    appearance: none; 
+    -webkit-appearance: none; 
+}
+
+.custom-select select:focus {
+    outline: none;
+    border: 2px solid #007bff;
+}
+
+.custom-select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: #999;
+    pointer-events: none;
+}
+
+
+.custom-select select option {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    color: #333;
+}
+  
+/*  Location Input Statment*/
+.catalog-location{
+    width: 60%;
+    height: 2rem;
+    margin: 0.5rem auto;
+    border: 1.2px solid #2A1B3D;
+    border-radius: 5px;
+    padding-left: 0.5rem;
+    color: black;
+    background-color: rgba(0,0,0,0.1);
+
+    font-size: large;
+    box-shadow: 1px 1px 2px #2A1B3D;
+}
+
+.catalog-location:focus{
+    border: none;
+}
+
+/* Input range CSS */
+
+.price-min-max{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+} 
+
+.selected-price{
+    margin: 0 auto;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
