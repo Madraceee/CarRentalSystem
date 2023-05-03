@@ -1,8 +1,13 @@
 import sql from "mysql";
-import {USERNAME,PASSWORD,DATABASE} from '../configs/database.js'
+import {HOST,USERNAME,PASSWORD,DATABASE} from '../configs/database.js'
+
+if(PASSWORD === ""){
+    console.log("Enter MYSQL PASSWORD in config");
+    process.exit(1);
+}
 
 const connection = sql.createConnection({
-    host: "localhost",
+    host: HOST,
     user: USERNAME,
     password: PASSWORD,
     database: DATABASE
