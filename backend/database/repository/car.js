@@ -28,6 +28,23 @@ class Car extends CarListingSchema {
       return data;
     }
   }
+
+  static insertCarDetails(data) {
+    return new Promise((resolve, reject) => {
+      const queryString = `INSERT INTO CARS(listingID, lenderID, carModel, carType, carCondition, listingStatus, isElectric) VALUES('${data.listingID}', '${data.lenderID}', '${data.carModel}', '${data.carType}', '${data.carCondition}', '${data.listingStatus}', ${data.isElectric})`;
+  
+      connection.query(queryString, (err, result) => {
+        if (err) {
+          return reject(err + "->Database");
+        }
+        return resolve(result);
+      });
+    });
+  }
+  
+
+
+
 }
 
 export default Car;
