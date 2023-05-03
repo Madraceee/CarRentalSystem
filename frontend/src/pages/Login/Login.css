@@ -79,6 +79,10 @@
     box-shadow: 1px 1px 2px #2A1B3D;
 }
 
+.input-fields:focus{
+    border: none;
+}
+
 ::placeholder{
     color: white;
 }

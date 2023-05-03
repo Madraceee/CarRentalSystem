@@ -1,10 +1,7 @@
 .Button{
+    display: inline-block;
     transition: transform 0.3s ;
     text-align: center;
-}
-
-.Button span{
-    vertical-align: middle;
 }
 
 .Button:hover{    
@@ -38,4 +35,10 @@
 .bgWhiteTextBlack{
     background-color: rgb(177, 175, 175);
     color: rgb(29, 29, 29);    
+}
+
+.bgBlackTextWhite{
+    background-color: rgb(29, 29, 29) ;
+    color: rgb(224, 224, 224);
+    font-weight: 600;
 }

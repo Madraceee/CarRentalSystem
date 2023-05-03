@@ -23,13 +23,13 @@ const CatalogCarEntry = ({carname, imgurl, type, location, condition, price, siz
                 <Button
                     BtnText={"Book Now"}
                     size={"medium"}
-                    color="Pink"
+                    color="Black"
                     // method={handleBack}
                 />
                 <Button
                     BtnText={"Reserve"}
                     size={"medium"}
-                    color="Pink"
+                    color="Black"
                     // method={handleBack}
                 />
             </div>         
