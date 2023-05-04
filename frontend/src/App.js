@@ -7,6 +7,7 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/Login/Login';
 import Catalog from "./pages/Catalog/Catalog"
 import UserProfile from "./pages/UserProfile/UserProfile"
+import UserHistory from "./pages/UserHistory/UserHistory"
 
 function App() {
   
@@ -26,6 +27,10 @@ function App() {
     {
       path: "/userprofile",
       element: <UserProfile />
+    },
+    {
+      path: "/userhistory",
+      element: <UserHistory />
     }
   ])
   return (
