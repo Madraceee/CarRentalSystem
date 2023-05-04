@@ -3,6 +3,7 @@ import "./Catalog.css";
 import Nav from '../../components/Nav';
 import CatalogCarEntry from '../../components/CatalogCarEntry';
 import Button from '../../components/Button';
+import BookCar from '../../components/BookCar.jsx';
 
 function Catalog() {
 
