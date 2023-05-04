@@ -21,7 +21,9 @@ async function insertCarDetailsRoute(data, res) {
 
 
               // Send success message
+              res.writeHead(200);
               res.write('Car successfully inserted!');
+              res.end("\n");
             } catch (error) {
               console.error(error);
               console.log("Insert Car Error:" + error);

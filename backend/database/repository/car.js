@@ -6,7 +6,7 @@ class Car extends CarListingSchema {
     try {
       const result = await new Promise((resolve, reject) => {
         connection.query(
-          `SELECT * FROM CARS WHERE listingID='${data.listingID}';`,
+          `SELECT * FROM CARS;`,
           (err, result) => {
             if (err) {
               reject(err + "->Database");
@@ -15,15 +15,13 @@ class Car extends CarListingSchema {
           }
         );
       });
-      if (result.length === 1) {
-        const car = CarListingSchema.create(result[0]);
+     
+        const car = CarListingSchema.create(result[result.length-1]);
         const data = { msg: "Car Details Found", carDetails: car };
         return data;
-      } else if (result.length === 0) {
-        const data = { msg: "Car Listing Not Found" };
-        return data;
+      
       }
-    } catch (err) {
+     catch (err) {
       const data = { err: "Database Error" };
       return data;
     }
@@ -31,16 +29,30 @@ class Car extends CarListingSchema {
 
   static insertCarDetails(data) {
     return new Promise((resolve, reject) => {
-      const queryString = `INSERT INTO CARS(listingID, lenderID, carModel, carType, carCondition, location, imageURL) VALUES('${data.listingID}', '${data.lenderID}', '${data.carModel}', '${data.carType}', '${data.carCondition}', '${data.location}', '${data.imageURL}')`;
+      connection.query(
+        `SELECT MAX(CAST(listingID AS UNSIGNED)) AS maxListingID FROM CARS;`,
+        (err, result) => {
+          if (err) {
+            return reject(err + "->Database");
+          }
+          
+          const maxListingID = result[0].maxListingID;
+          const newListingID = maxListingID + 1;
+          data.listingID = newListingID.toString();
+          
+          const queryString = `INSERT INTO CARS(listingID, lenderID, carModel, carType, carCondition, location, imageURL) VALUES('${data.listingID}', '${data.lenderID}', '${data.carModel}', '${data.carType}', '${data.carCondition}', '${data.location}', '${data.imageURL}')`;
   
-      connection.query(queryString, (err, result) => {
-        if (err) {
-          return reject(err + "->Database");
+          connection.query(queryString, (err, result) => {
+            if (err) {
+              return reject(err + "->Database");
+            }
+            return resolve(result);
+          });
         }
-        return resolve(result);
-      });
+      );
     });
   }
+  
   
 
 
