@@ -1,8 +1,13 @@
 import React,{useEffect, useState} from 'react'
 import "./UploadListing.css";
 import Button from '../../components/Button';
+import UploadWidget from '../../components/UploadWidget';
+import Overlay from '../../components/Overlay';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
+
+import axios from 'axios';
+import { UPLOAD_CAR } from '../APIURL';
 
 function UploadListing() {
 
@@ -10,11 +15,53 @@ function UploadListing() {
     const [fuelUpload,setFuelUpload] = useState("");
     const [addressUpload,setAddressUpload] = useState("");
     const [imageUpload,setImageUpload] = useState({});
-    const [cityUpload,setCityUpload] = useState("")
-    const [priceUpload,setPriceUpload] = useState("")
+    const [cityUpload,setCityUpload] = useState("");
+    const [priceUpload,setPriceUpload] = useState("");
 
-    const uploadListing = () =>{
-        console.log(modelUpload, fuelUpload, addressUpload,cityUpload,priceUpload, imageUpload);
+    //Overlay status
+    const [showOverlay,setShowOverlay] = useState(false);
+    const [status,setStatus] = useState(false);
+    const [overlayMsg,setOverlayMsg] = useState("");
+
+
+    const user = useSelector(store =>store.user);
+
+    const uploadListing = async () =>{
+        try{
+            const reposnse = await axios.options(UPLOAD_CAR)
+                .then(()=>{
+                    return axios.post(UPLOAD_CAR,{
+                        lenderID: user.emailId,
+                        carname: modelUpload,
+                        type: fuelUpload,
+                        carCondition : "Used",
+                        imageURL: imageUpload,
+                        address: addressUpload,
+                        city: cityUpload,
+                        price: priceUpload,
+                        token: user.token
+                    })
+                    .catch(err=>{
+                        throw err;
+                    })
+                })
+            if(reposnse.request.status === 200){
+                setStatus(true);
+                setOverlayMsg("Insertion Successful");
+                setShowOverlay(true);
+            }
+            if(reposnse.status === 500){
+                setStatus(false);
+                setOverlayMsg("Insertion Unsuccessful");
+                setShowOverlay(true);
+            }
+        }
+        catch(error){
+            console.log(error);
+            setStatus(false);
+            setOverlayMsg("Insertion Unsuccessful");
+            setShowOverlay(true);
+        }
     } 
 
     const navigate = useNavigate();
@@ -22,7 +69,6 @@ function UploadListing() {
         navigate("/userprofile");
     }
 
-    const user = useSelector(store => store.user);
     useEffect(()=>{
         if(user.emailId === ""){
             navigate("/login");
@@ -31,6 +77,14 @@ function UploadListing() {
 
     return (
         <div className='upload-ctn'>
+            { showOverlay? 
+            (
+                <Overlay 
+                status = {status}
+                msg = {overlayMsg}
+                handleBack = {()=>setShowOverlay(false)}
+            />
+            ): null}
             <div className="upload-box">
                 <p className='heading'>Upload Listing</p>
                 <input 
@@ -47,6 +101,7 @@ function UploadListing() {
                     onChange={(e) => setFuelUpload(e.target.value)}
                     className='custom-select'
                 >
+                    <option value="">Select Fuel Type</option>
                     <option value="Petrol">Petrol</option>
                     <option value="Diesel">Diesel</option>
                     <option value="Electric">Electric</option>
@@ -73,11 +128,8 @@ function UploadListing() {
                     className='input-fields'
                     min={0}
                 />
-                <input  
-                    type='file'
-                    placeholder='Enter Photo'
-                    filename={imageUpload}
-                    onChange={(e)=>setImageUpload(e.target.files)}
+                <UploadWidget 
+                    setImageUpload = {setImageUpload}
                 />
                 <Button
                     BtnText={"List Car"}

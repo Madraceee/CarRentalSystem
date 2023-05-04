@@ -1,4 +1,3 @@
-import ProfileSchema from "../../database/model/profileSchema.js";
 import Profile from "../../database/repository/profile.js";
 
 import { JWT_SECRET } from "../../configs/server.js";
@@ -6,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 async function loginRoute(data,res){
     const jsonData = JSON.parse(data.data);
-    const loginObj = ProfileSchema.create(jsonData);
+    const loginObj = Profile.create(jsonData);
 
     try{
         const payload = await Profile.login(loginObj); 

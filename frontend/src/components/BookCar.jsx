@@ -3,21 +3,13 @@ import "../css/BookCar.css";
 import Button from './Button';
 
 function BookCar({carData,method,hideTab}) {
-//   const method = "Reserve"
-//   const carData = {
-//     renter: "Nitheesh",
-//     name: "Lamborghini",
-//     type: "Petrol",
-//     address: "1121 Block1",
-//     city: "Chennai",
-//     imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-//   }
+
   return (
     <div className='overlay'>
         <div className='book-ctn'>
             <div className='col-ctn'>
                 <div className='col'>
-                    <span>Lender: {carData.lenderId}</span>
+                    <span>Lender: {carData.lenderID}</span>
                     <span>Car: {carData.carname}</span>
                     <span>Type: {carData.type}</span>
                     <span>Location: {carData.address} , {carData.city}</span>
@@ -41,7 +33,7 @@ function BookCar({carData,method,hideTab}) {
                 </div>            
             </div>   
             <div>
-                <img className='car-image' src={carData.imgurl} alt={"Car Image"}/>
+                <img className='car-image' src={carData.imageURL} alt={"Car Image"}/>
             </div>
             <div className='btn-ctn'>
                 <Button

@@ -7,7 +7,7 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/Login/Login';
 import Catalog from "./pages/Catalog/Catalog"
 import UserProfile from "./pages/UserProfile/UserProfile"
-import UserHistory from "./pages/UserHistory/UserHistory"
+import CarList from './pages/CarList/CarList';
 import UploadLising from "./pages/UploadListing/UploadListing";
 
 function App() {
@@ -32,6 +32,10 @@ function App() {
     {
       path: "/uploadlisting",
       element: <UploadLising />
+    },
+    {
+      path: "/carList",
+      element: <CarList />
     }
   ])
   return (

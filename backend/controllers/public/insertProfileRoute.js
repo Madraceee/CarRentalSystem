@@ -13,7 +13,7 @@ async function insertProfileRoute(data, res) {
               
           
               // Insert car details into database
-              const payload =    await Profile.insertProfile(profileObj);
+              const payload =  await Profile.insertProfile(profileObj);
 
 
               res.setHeader("Content-Type", "application/json");
@@ -27,6 +27,9 @@ async function insertProfileRoute(data, res) {
             } catch (error) {
               console.error(error);
               console.log("Insert Profile Error:" + error);
+              res.writeHead(500);
+              res.write('Profile insertion unsuccessfull!');
+              res.end("\n");
             }
           };
           

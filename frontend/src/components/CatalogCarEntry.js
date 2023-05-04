@@ -2,12 +2,12 @@ import React from 'react';
 import "../css/CatalogCarEntry.css";
 import Button from "./Button"
 
-const CatalogCarEntry = ({car,setBookTab}) => {  
+const CatalogCarEntry = ({car,setBookTab,display}) => {  
 
     return (
         <div className="carcard">
             <div>
-                <img src={car.imgurl} alt="Car image" className='carcard-image'/>
+                <img src={car.imageURL} alt="Car image" className='carcard-image'/>
             </div>
             <div className="carcard-details">
                 <span className='carcard-carname'>{car.carname}</span>
@@ -19,26 +19,28 @@ const CatalogCarEntry = ({car,setBookTab}) => {
                 <span>Price</span>
                 <span>{car.price}/hr</span>
             </div>
-            <div className='cardcard-btnctn'>                
-                <Button
-                    BtnText={"Book Now"}
-                    size={"medium"}
-                    color="Black"
-                    method={(e)=>{
-                        e.preventDefault();
-                        setBookTab(car,"Book Now")}
-                    }
-                />
-                <Button
-                    BtnText={"Reserve"}
-                    size={"medium"}
-                    color="Black"
-                    method={(e)=>{
-                        e.preventDefault();
-                        setBookTab(car,"Reserve")
-                    }}
-                />
-            </div>         
+            { display && 
+                (<div className='cardcard-btnctn'>                
+                    <Button
+                        BtnText={"Book Now"}
+                        size={"medium"}
+                        color="Black"
+                        method={(e)=>{
+                            e.preventDefault();
+                            setBookTab(car,"Book Now")}
+                        }
+                    />
+                    <Button
+                        BtnText={"Reserve"}
+                        size={"medium"}
+                        color="Black"
+                        method={(e)=>{
+                            e.preventDefault();
+                            setBookTab(car,"Reserve")
+                        }}
+                    />
+                </div>  )
+            }              
         </div>
     );
 }

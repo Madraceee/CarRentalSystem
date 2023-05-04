@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import "./Catalog.css";
 import Nav from '../../components/Nav';
 import CatalogCarEntry from '../../components/CatalogCarEntry';
@@ -8,87 +8,39 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Footer from '../../components/Footer';
 
+import axios from 'axios';
+import { CAR_CATALOG } from '../APIURL';
+
 function Catalog() {
 
-    const carListings = [
-        {
-            carname:"Wagnor",
-            lenderId:"123",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            address:"12 Gandhi Road12andhi Road12 andhi Road12",
-            city:"Chennai",
-            carCondition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            lenderId:"123",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            address:"12 Gandhi Road",
-            city:"Chennai",
-            carCondition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            lenderId:"123",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            address:"12 Gandhi Road",
-            city:"Chennai",
-            carCondition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            lenderId:"123",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            address:"12 Gandhi Road",
-            carCondition:"Functional",
-            city:"Chennai",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            lenderId:"123",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            address:"12 Gandhi Road",
-            city:"Chennai",
-            carCondition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            lenderId:"123",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            address:"12 Gandhi Road",
-            city:"Chennai",
-            carCondition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            lenderId:"123",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            address:"12 Gandhi Road",
-            city:"Chennai",
-            carCondition:"Functional",
-            price:"Rs. 799",
-            color:"White"
+    const [carListings,setCarListings] = useState([]) 
+    const fetchCarListings = async ()=>{
+        try{
+            const response = await axios.options(CAR_CATALOG)
+            .then(()=>{
+                return axios.get(CAR_CATALOG);
+            })
+            .catch(err=>{
+                throw err;
+            })
+
+            if(response.status === 200){
+                setCarListings(response.data.carDetails);
+            }
+            else{
+                throw Error("Restart Backend");
+            }
+            
         }
-    ]
+        catch(error){
+            console.log(error);
+        }
+        
+    }
+
+    useEffect(()=>{
+        fetchCarListings();
+    },[]);
 
     //Filter Options
     const [type,setType] = useState("");
@@ -192,11 +144,12 @@ function Catalog() {
                     
                 </div>
                 <div className='catalog-display'>
-                    {carListings.map((car,index)=>(
+                    { carListings.length>0 && carListings.map((car,index)=>(
                         <CatalogCarEntry
                             key={index}
                             car = {car}
                             setBookTab = {setBookTab}
+                            display={true}
                     />
                     ))}
                 </div>
