@@ -2,7 +2,6 @@ import React,{useEffect, useState} from 'react'
 import "./Login.css";
 import Button from '../../components/Button';
 import Overlay from '../../components/Overlay';
-import Nav from '../../components/Nav';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -35,8 +34,13 @@ function Login() {
     useEffect(()=>{
         setEmailLogin("");
         setPasswordLogin("");
-    },[showOverlay])
+    },[showOverlay]);
 
+    const delay = ms => new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
+
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const submitLoginCredentials = async (e) =>{
         e.preventDefault();
@@ -60,10 +64,13 @@ function Login() {
                    setShowOverlay(true);
                    
                    dispatch(login(
-                    {   username: "",
-                        userId:response.data.userId,
+                    {   emailId: response.data.emailId,
+                        role:"Lender",
+                        // response.data.role
                         token:response.data.token 
                     }));
+                    await delay(2000);
+                    navigate("/");
                 }
           } catch (error) {
                 if(error.response.request.status === 401){
@@ -78,7 +85,7 @@ function Login() {
         console.log(nameRegistration,emailRegistration,passwordRegistration,phoneRegistration,typeRegistration,fileRegistration);
     } 
 
-    const navigate = useNavigate();
+    
     const handleBack = () =>{
         navigate("/");
     }

@@ -8,6 +8,9 @@ import Login from './pages/Login/Login';
 import Catalog from "./pages/Catalog/Catalog"
 import UserProfile from "./pages/UserProfile/UserProfile"
 import UserHistory from "./pages/UserHistory/UserHistory"
+import Catalog from "./pages/Catalog/Catalog";
+import UserProfile from "./pages/UserProfile/UserProfile";
+import UploadLising from "./pages/UploadListing/UploadListing";
 
 function App() {
   
@@ -31,6 +34,10 @@ function App() {
     {
       path: "/userhistory",
       element: <UserHistory />
+    },
+    {
+      path: "/uploadlisting",
+      element: <UploadLising />
     }
   ])
   return (

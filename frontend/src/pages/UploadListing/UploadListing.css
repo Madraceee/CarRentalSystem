@@ -1,4 +1,4 @@
-.ctn{
+.upload-ctn{
     background-image: linear-gradient(to bottom,#544D87 50%,#2A1B3D);
     color: white;
 
@@ -14,54 +14,26 @@
     justify-content: center;
 }
 
-.box{
+.upload-box{
     transform: translateY(-10%);
     width: 60%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     border: 5px solid black;
     text-align: center;
 }
 
-.cover{
-    position: absolute;
-    background-color: black;
-    z-index: 10;
-    width: 50%;
-    height: 100%;
-    transition: left 1s ease-in-out;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.upload-box> *{
+    margin: 1rem auto;
 }
-
-.cover-text{
-    font-size: 51px;
-}
-
-.cover-text:hover{
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-/*.login-ctn, .register-ctn{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    text-align: center;
-}*/
 
 .heading{
     font-size: 27px;
     font-weight: 600;
 }
 
-
-.input-fields{
+.upload-ctn .input-fields{
     width: 60%;
     height: 2rem;
     border: 1.2px solid #2A1B3D;
@@ -74,6 +46,56 @@
     box-shadow: 1px 1px 2px #2A1B3D;
 }
 
+.upload-ctn .input-fields:focus{
+    border: none;
+}
+
 ::placeholder{
     color: white;
+}
+
+/* Custom Select */
+
+.upload-ctn .custom-select {
+    position: relative;
+    width: 40%;
+    font-size: 1.2rem;
+}
+
+.custom-select select {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    appearance: none; 
+    -webkit-appearance: none; 
+}
+
+.custom-select select:focus {
+    outline: none;
+    border: 2px solid #007bff;
+}
+
+.custom-select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: #999;
+    pointer-events: none;
+}
+
+
+.custom-select select option {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    color: #333;
 }
