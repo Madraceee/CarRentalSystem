@@ -3,6 +3,7 @@ import ProfileSchema from "../model/profileSchema.js";
 import connection from "../index.js";
 
 import bcrypt from 'bcryptjs';
+import { resolve } from "url";
 
 class Profile extends ProfileSchema {
 
@@ -52,6 +53,22 @@ class Profile extends ProfileSchema {
         });
       });
     }
-}
+
+    static insertProfile(data) {
+      return new Promise((resolve, reject) => {
+      
+            const queryString = `INSERT INTO PROFILE VALUES('${data.emailId}', '${data.name}', '${data.password}', '${data.city}', '${data.address}', '${data.role}')`;
+    
+            connection.query(queryString, (err, result) => {
+              if (err) {
+                return reject(err + "->Database");
+              }
+              return resolve(result);
+            });
+          }
+        );
+      };
+    }
+
   
 export default Profile
