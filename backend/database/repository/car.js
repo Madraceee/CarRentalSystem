@@ -31,7 +31,7 @@ class Car extends CarListingSchema {
 
   static insertCarDetails(data) {
     return new Promise((resolve, reject) => {
-      const queryString = `INSERT INTO CARS(listingID, lenderID, carModel, carType, carCondition, listingStatus, isElectric) VALUES('${data.listingID}', '${data.lenderID}', '${data.carModel}', '${data.carType}', '${data.carCondition}', '${data.listingStatus}', ${data.isElectric})`;
+      const queryString = `INSERT INTO CARS(listingID, lenderID, carModel, carType, carCondition, location, imageURL) VALUES('${data.listingID}', '${data.lenderID}', '${data.carModel}', '${data.carType}', '${data.carCondition}', '${data.location}', '${data.imageURL}')`;
   
       connection.query(queryString, (err, result) => {
         if (err) {
