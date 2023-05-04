@@ -32,7 +32,7 @@
 
 .card {
     box-shadow: white 1px 1px 3px;
-    width: calc(inherit - 5%);
+    width: inherit;
 }
 
 .card-details{
@@ -42,11 +42,6 @@
     margin-left: 1rem;
     min-width: 50%;
     max-width: 50%;
-}
-
-.card-price{
-    display: flex;
-    flex-direction: column;
 }
 
 .horline {

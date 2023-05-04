@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import Nav from '../../components/Nav';
 import { useNavigate } from "react-router-dom";
 
-function UserProfile() {
+function UserHistory() {
     
     const navigate = useNavigate();
     const handleBack = () =>{
@@ -24,10 +24,7 @@ function UserProfile() {
                         <span>Type: Petrol</span>
                         <span>Location: Chennai</span>
                         <span>Condition: Flawed</span>
-                    </div>
-                    <div className='card-price'>
-                        <span>Price</span>
-                        <span>599/hr</span>
+                        <span>Price: 599/hr</span>
                     </div>
                 </div>
                 <div className='card'>
@@ -37,10 +34,7 @@ function UserProfile() {
                         <span>Type: Diesel</span>
                         <span>Location: Hyderabad</span>
                         <span>Condition: New</span>
-                    </div>
-                    <div className='card-price'>
-                        <span>Price</span>
-                        <span>999/hr</span>
+                        <span>Price: 999/hr</span>
                     </div>
                 </div>
             </div>
