@@ -1,27 +1,37 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import "./UploadListing.css";
 import Button from '../../components/Button';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 function UploadListing() {
 
     const [modelUpload,setModelUpload] = useState("");
     const [fuelUpload,setFuelUpload] = useState("");
-    const [locationUpload,setLocationUpload] = useState("");
-    const [conditionUpload,setConditionUpload] = useState("");
+    const [addressUpload,setAddressUpload] = useState("");
+    const [imageUpload,setImageUpload] = useState({});
+    const [cityUpload,setCityUpload] = useState("")
+    const [priceUpload,setPriceUpload] = useState("")
 
     const uploadListing = () =>{
-        console.log(modelUpload, fuelUpload, locationUpload, conditionUpload);
+        console.log(modelUpload, fuelUpload, addressUpload,cityUpload,priceUpload, imageUpload);
     } 
 
     const navigate = useNavigate();
     const handleBack = () =>{
-        navigate("/");
+        navigate("/userprofile");
     }
 
+    const user = useSelector(store => store.user);
+    useEffect(()=>{
+        if(user.emailId === ""){
+            navigate("/login");
+        }
+    })
+
     return (
-        <div className='ctn'>
-            <div className="box">
+        <div className='upload-ctn'>
+            <div className="upload-box">
                 <p className='heading'>Upload Listing</p>
                 <input 
                     type="text"   
@@ -35,6 +45,7 @@ function UploadListing() {
                     id='fuel'
                     value={fuelUpload}
                     onChange={(e) => setFuelUpload(e.target.value)}
+                    className='custom-select'
                 >
                     <option value="Petrol">Petrol</option>
                     <option value="Diesel">Diesel</option>
@@ -42,21 +53,32 @@ function UploadListing() {
                 </select>
                 <input 
                     type="text"   
-                    value={locationUpload}
-                    onChange={(e)=>setLocationUpload(e.target.value)}
-                    placeholder='Enter location/coordinates'
+                    value={addressUpload}
+                    onChange={(e)=>setAddressUpload(e.target.value)}
+                    placeholder='Enter Address'
                     className='input-fields'
                 />
-                <select 
-                    name='condition' 
-                    id='condition'
-                    value={conditionUpload}
-                    onChange={(e) => setConditionUpload(e.target.value)}
-                >
-                    <option value="New">Brand New</option>
-                    <option value="Functional">Functional</option>
-                    <option value="Flawed">Flawed</option>
-                </select>
+                <input 
+                    type="text"   
+                    value={cityUpload}
+                    onChange={(e)=>setCityUpload(e.target.value)}
+                    placeholder='Enter City'
+                    className='input-fields'
+                />
+                <input 
+                    type="number"   
+                    value={priceUpload}
+                    onChange={(e)=>setPriceUpload(e.target.value)}
+                    placeholder='Enter Price per Hour'
+                    className='input-fields'
+                    min={0}
+                />
+                <input  
+                    type='file'
+                    placeholder='Enter Photo'
+                    filename={imageUpload}
+                    onChange={(e)=>setImageUpload(e.target.files)}
+                />
                 <Button
                     BtnText={"List Car"}
                     size={"medium"}

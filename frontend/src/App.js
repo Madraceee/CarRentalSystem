@@ -6,6 +6,9 @@ import {
 import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/Login/Login';
 import Catalog from "./pages/Catalog/Catalog"
+import UserProfile from "./pages/UserProfile/UserProfile"
+import UserHistory from "./pages/UserHistory/UserHistory"
+import UploadLising from "./pages/UploadListing/UploadListing";
 
 function App() {
   
@@ -21,6 +24,14 @@ function App() {
     {
       path: "/catalog",
       element: <Catalog />
+    },
+    {
+      path: "/userprofile",
+      element: <UserProfile />
+    },
+    {
+      path: "/uploadlisting",
+      element: <UploadLising />
     }
   ])
   return (
