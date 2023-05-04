@@ -37,6 +37,9 @@ function UserProfile() {
     }
 
     useEffect(()=>{
+        if(user.emailId === ""){
+            navigate("/");
+        }
         getProfile();
     })
 
@@ -68,7 +71,17 @@ function UserProfile() {
                     <br />
                     <br />
                     <br />
-                    <div>
+                    <div className='btn-ctn'>
+                        {   user.role === "Lender"?
+                            (
+                                <Button
+                                    BtnText={"New Car"}
+                                    size={"medium"}
+                                    color="Pink"
+                                    method={()=>navigate("/uploadlisting")}
+                                />
+                            ):(null)
+                        }
                         <Button
                             BtnText={"Home"}
                             size={"medium"}
