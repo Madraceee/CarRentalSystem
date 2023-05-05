@@ -1,93 +1,172 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState,useRef} from 'react'
 import "./Catalog.css";
 import Nav from '../../components/Nav';
 import CatalogCarEntry from '../../components/CatalogCarEntry';
 import Button from '../../components/Button';
+import BookCar from '../../components/BookCar.jsx';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Footer from '../../components/Footer';
+
+import axios from 'axios';
+import { CAR_CATALOG } from '../APIURL';
 
 function Catalog() {
 
-    const carListings = [
-        {
-            carname:"Wagnor",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            location:"12 Gandhi Road12andhi Road12 andhi Road12",
-            condition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            location:"12 Gandhi Road",
-            condition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            location:"12 Gandhi Road",
-            condition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            location:"12 Gandhi Road",
-            condition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            location:"12 Gandhi Road",
-            condition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            location:"12 Gandhi Road",
-            condition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        },
-        {
-            carname:"Wagnor",
-            imgurl:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            type:"Petrol",
-            location:"12 Gandhi Road",
-            condition:"Functional",
-            price:"Rs. 799",
-            color:"White"
-        }
-    ]
+    const [carListings,setCarListings] = useState([]);
+    const [receivedData,setReceivedData] = useState([]);
+    const fetchCarListings = async ()=>{
+        try{
+            const response = await axios.options(CAR_CATALOG)
+            .then(()=>{
+                return axios.get(CAR_CATALOG);
+            })
+            .catch(err=>{
+                throw err;
+            })
 
+            if(response.status === 200){
+                setCarListings(response.data.carDetails);
+                setReceivedData(response.data.carDetails);
+                minMax(response.data.carDetails);
+            }
+            else{
+                throw Error("Restart Backend");
+            }
+            
+        }
+        catch(error){
+            console.log(error);
+        }
+        
+    }
+
+    //Filter Options
     const [type,setType] = useState("");
     const [location,setLocation] = useState("")
     const [price,setPrice] = useState(0);
+
+    const firstUpdate = useRef(true);
+    useEffect(()=>{
+        if(firstUpdate.current){
+            firstUpdate.current = false;
+            fetchCarListings();
+            return;
+        }   
+        let arr = [];
+        arr = filterCity();  
+        arr = filterType(arr);
+        arr = filterPrice(arr);
+        setCarListings(arr);
+    },[location,type,price]);
+
+
+    //Book tab variables
+    const [showBookTab,setShowBookTab] = useState(false);
+    const [bookTabData,setBookTabData] = useState({});
+    const [method,setMethod] = useState("");
+
+    const user = useSelector(store=>store.user);
+    const navigate = useNavigate();
+    
+    const hideTab = ()=>{
+        setShowBookTab(false);
+        setBookTabData({});
+        setMethod("");
+    }
+
+    const setBookTab = (car,method) =>{
+        if(user.emailId === ""){
+            navigate("/login");
+        }
+        else{
+            setBookTabData(car);
+            setMethod(method);
+            setShowBookTab(true);
+        }        
+    }
 
     // Get the data and find the min and max value then set it
     const [minPrice,setMinPrice] = useState(0);
     const [maxPrice,setMaxPrice] = useState(100);
 
+    const minMax = (carData)=>{
+        let min = 99999;
+        let max = 0;
+        carData.forEach(car=>{
+            if(max <car.price){
+                max = car.price;
+            }
+            if(min >car.price){
+                min = car.price
+            }
+        });
+        setMaxPrice(max);
+        setMinPrice(min);
+        setPrice(max)
+    }
 
-    function submitFilter(){
-        console.log(type,location,price);
+    //Filter Functions
+    const filterPrice = (arr)=>{
+        const newArr = [];
+
+        arr.forEach(car=>{
+            if(car.price <=price){
+                newArr.push(car);
+            }
+        });
+        return newArr;
+    }
+
+    const filterCity = ()=>{
+        const newArr = [];
+        const regex = new RegExp(location,"i");
+
+        if(location === ""){
+            return receivedData;
+        }
+        carListings.forEach(car=>{
+            if(regex.test(car.city)){
+                newArr.push(car);
+            }
+        });   
+        return newArr;     
+    };
+
+    const filterType = (arr)=>{
+        if(type === ""){
+            return arr;
+        }
+        const newArr = [];
+        arr.forEach(car=>{
+            if(car.type === type){
+                newArr.push(car);
+            }
+        })
+
+        return newArr;
+    }
+
+
+    function clearFilters(){
+        setCarListings(receivedData);
+        setLocation("");
+        setType("");
+        setPrice(maxPrice);
     }
 
     return (
         <div className='catalog-ctn'>
             <Nav />
+            { showBookTab?
+                (
+                    <BookCar
+                        carData = {bookTabData}
+                        method = {method}
+                        hideTab = {hideTab}
+                    />
+                ):(null)
+            }
             <div className='catalog-body'>
                 <div className='catalog-options'>
                     <h3>Filter Options</h3>
@@ -114,8 +193,8 @@ function Catalog() {
                     <div>
                         <h3>Select Price</h3>
                         <div className='price-min-max'>
-                            <span>0</span>
-                            <span>100</span>
+                            <span>{minPrice}</span>
+                            <span>{maxPrice}</span>
                         </div>
                         <input 
                             type="range" 
@@ -130,28 +209,26 @@ function Catalog() {
                     </div>
                     <div style={{margin:" 1rem auto"}}>
                         <Button
-                            BtnText={"Submit"}
+                            BtnText={"Clear"}
                             size={"medium"}
                             color={"Black"}
-                            method={submitFilter}
+                            method={clearFilters}
                         />
                     </div>
                     
                 </div>
                 <div className='catalog-display'>
-                    {carListings.map((car)=>(
+                    { carListings.length>0 && carListings.map((car,index)=>(
                         <CatalogCarEntry
-                        carname={car.carname}
-                        imgurl={car.imgurl}
-                        type={car.type}
-                        location={car.location}
-                        condition={car.condition}
-                        price={car.price}
-                        color={car.color}
+                            key={index}
+                            car = {car}
+                            setBookTab = {setBookTab}
+                            display={true}
                     />
                     ))}
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

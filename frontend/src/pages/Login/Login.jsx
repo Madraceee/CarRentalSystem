@@ -2,11 +2,12 @@ import React,{useEffect, useState} from 'react'
 import "./Login.css";
 import Button from '../../components/Button';
 import Overlay from '../../components/Overlay';
-import Nav from '../../components/Nav';
+import UploadWidget from "../../components/UploadWidget"
+import bcrypt from "bcryptjs";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { LOGIN_URL } from '../APIURL';
+import { LOGIN_URL,INSERT_PROFILE } from '../APIURL';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/userSlice';
 
@@ -20,9 +21,10 @@ function Login() {
     const [nameRegistration,setNameRegistration] = useState("");
     const [emailRegistration,setEmailRegistration] = useState("");
     const [passwordRegistration,setPasswordRegistration] = useState("");
-    const [phoneRegistration,setPhoneRegistration] = useState("");
+    const [addressRegistration,setAddressRegistration] = useState("");
+    const [cityRegistration,setCityRegistration] = useState("");
     const [typeRegistration,setTypeRegistration] = useState("");
-    const [fileRegistration,setFileRegistration] = useState(null);
+    const [imageRegistration,setImageRegistration] = useState("");
 
     //For animation
     const [left,setLeft] = useState(false);
@@ -35,8 +37,13 @@ function Login() {
     useEffect(()=>{
         setEmailLogin("");
         setPasswordLogin("");
-    },[showOverlay])
+    },[showOverlay]);
 
+    const delay = ms => new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
+
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const submitLoginCredentials = async (e) =>{
         e.preventDefault();
@@ -60,10 +67,12 @@ function Login() {
                    setShowOverlay(true);
                    
                    dispatch(login(
-                    {   username: "",
-                        userId:response.data.userId,
+                    {   emailId: response.data.emailId,
+                        role: response.data.role,
                         token:response.data.token 
                     }));
+                    await delay(2000);
+                    navigate("/");
                 }
           } catch (error) {
                 if(error.response.request.status === 401){
@@ -74,11 +83,42 @@ function Login() {
           }
     }   
 
-    const submitRegistrationCredentials = () =>{
-        console.log(nameRegistration,emailRegistration,passwordRegistration,phoneRegistration,typeRegistration,fileRegistration);
+    const submitRegistrationCredentials = async () =>{
+        const hashedPassword = bcrypt.hashSync(passwordRegistration)
+        setPasswordRegistration(hashedPassword);
+        try{
+            const response = await axios.options(INSERT_PROFILE)
+                .then(()=>{
+                    return axios.post(INSERT_PROFILE,{
+                        emailId: emailRegistration,
+                        name: nameRegistration,
+                        password: hashedPassword,
+                        city: cityRegistration,
+                        address: addressRegistration,
+                        role: typeRegistration,
+                        imageURL: imageRegistration
+                    })
+                })
+                .catch(err=>{
+                    throw err;
+                })
+            
+            if(response.request.status === 200){
+                setStatus(true);
+                setOverlayMsg("Profile Created");
+                setShowOverlay(true);
+            }
+        }
+        catch(error){
+            console.log(error);
+            setStatus(false);
+            setOverlayMsg("Profile Creation Unsuccessful");
+            setShowOverlay(true);
+        }       
+
     } 
 
-    const navigate = useNavigate();
+    
     const handleBack = () =>{
         navigate("/");
     }
@@ -150,11 +190,17 @@ function Login() {
                         className='input-fields'
                     />
                     <input 
-                        type="tel"   
-                        pattern="[0-9]{10}"
-                        value={phoneRegistration}
-                        onChange={(e)=>setPhoneRegistration(e.target.value)}
-                        placeholder='Enter Phone Number'
+                        type="text"   
+                        value={addressRegistration}
+                        onChange={(e)=>setAddressRegistration(e.target.value)}
+                        placeholder='Enter Address'
+                        className='input-fields'
+                    />
+                    <input 
+                        type="text"   
+                        value={cityRegistration}
+                        onChange={(e)=>setCityRegistration(e.target.value)}
+                        placeholder='Enter City'
                         className='input-fields'
                     />
                     <div>
@@ -163,10 +209,8 @@ function Login() {
                         <input type="radio" name="utype" value="Lender" onChange={(e)=>setTypeRegistration(e.target.value)}/>
                         <span >Lender</span>
                     </div>
-                    <input 
-                        type="file"
-                        onChange={(e)=>setFileRegistration(e.target.files[0])}
-                        className='input-fields'
+                    <UploadWidget 
+                        setImageUpload={setImageRegistration}
                     />
                     <Button
                         BtnText={"Create Account"}

@@ -1,31 +1,33 @@
 class CarListingSchema {
-    constructor(listingID, lenderID, carModel, carType, carCondition, listingStatus, isElectric) {
+    constructor(listingID, lenderID, carname, type, carCondition,imageURL,address,city,price) {
       this.listingID = listingID;
       this.lenderID = lenderID;
-      this.carModel = carModel;
-      this.carType = carType;
+      this.carname = carname;
+      this.type = type;
       this.carCondition = carCondition;
-      this.listingStatus = listingStatus || 'Active';
-      this.isElectric = isElectric || false;
+      this.imageURL = imageURL;
+      this.address = address;
+      this.city = city;
+      this.price = price;
     }
     
     static get carConditions() {
       return ['New', 'Used', 'Very Used'];
     }
     
-    static get listingStatuses() {
-      return ['Active', 'Inactive'];
-    }
+    
     
     static create(data) {
-      return new CarListing(
+      return new CarListingSchema(
         data.listingID,
         data.lenderID,
-        data.carModel,
-        data.carType,
+        data.carname,
+        data.type,
         data.carCondition,
-        data.listingStatus,
-        data.isElectric
+        data.imageURL,
+        data.address,
+        data.city,
+        data.price
       );
     }
   }
