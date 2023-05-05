@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState,useRef} from 'react'
 import "./Catalog.css";
 import Nav from '../../components/Nav';
 import CatalogCarEntry from '../../components/CatalogCarEntry';
@@ -13,7 +13,8 @@ import { CAR_CATALOG } from '../APIURL';
 
 function Catalog() {
 
-    const [carListings,setCarListings] = useState([]) 
+    const [carListings,setCarListings] = useState([]);
+    const [receivedData,setReceivedData] = useState([]);
     const fetchCarListings = async ()=>{
         try{
             const response = await axios.options(CAR_CATALOG)
@@ -26,6 +27,8 @@ function Catalog() {
 
             if(response.status === 200){
                 setCarListings(response.data.carDetails);
+                setReceivedData(response.data.carDetails);
+                minMax(response.data.carDetails);
             }
             else{
                 throw Error("Restart Backend");
@@ -38,14 +41,25 @@ function Catalog() {
         
     }
 
-    useEffect(()=>{
-        fetchCarListings();
-    },[]);
-
     //Filter Options
     const [type,setType] = useState("");
     const [location,setLocation] = useState("")
     const [price,setPrice] = useState(0);
+
+    const firstUpdate = useRef(true);
+    useEffect(()=>{
+        if(firstUpdate.current){
+            firstUpdate.current = false;
+            fetchCarListings();
+            return;
+        }   
+        let arr = [];
+        arr = filterCity();  
+        arr = filterType(arr);
+        arr = filterPrice(arr);
+        setCarListings(arr);
+    },[location,type,price]);
+
 
     //Book tab variables
     const [showBookTab,setShowBookTab] = useState(false);
@@ -76,9 +90,69 @@ function Catalog() {
     const [minPrice,setMinPrice] = useState(0);
     const [maxPrice,setMaxPrice] = useState(100);
 
+    const minMax = (carData)=>{
+        let min = 99999;
+        let max = 0;
+        carData.forEach(car=>{
+            if(max <car.price){
+                max = car.price;
+            }
+            if(min >car.price){
+                min = car.price
+            }
+        });
+        setMaxPrice(max);
+        setMinPrice(min);
+        setPrice(max)
+    }
 
-    function submitFilter(){
-        console.log(type,location,price);
+    //Filter Functions
+    const filterPrice = (arr)=>{
+        const newArr = [];
+
+        arr.forEach(car=>{
+            if(car.price <=price){
+                newArr.push(car);
+            }
+        });
+        return newArr;
+    }
+
+    const filterCity = ()=>{
+        const newArr = [];
+        const regex = new RegExp(location,"i");
+
+        if(location === ""){
+            return receivedData;
+        }
+        carListings.forEach(car=>{
+            if(regex.test(car.city)){
+                newArr.push(car);
+            }
+        });   
+        return newArr;     
+    };
+
+    const filterType = (arr)=>{
+        if(type === ""){
+            return arr;
+        }
+        const newArr = [];
+        arr.forEach(car=>{
+            if(car.type === type){
+                newArr.push(car);
+            }
+        })
+
+        return newArr;
+    }
+
+
+    function clearFilters(){
+        setCarListings(receivedData);
+        setLocation("");
+        setType("");
+        setPrice(maxPrice);
     }
 
     return (
@@ -119,8 +193,8 @@ function Catalog() {
                     <div>
                         <h3>Select Price</h3>
                         <div className='price-min-max'>
-                            <span>0</span>
-                            <span>100</span>
+                            <span>{minPrice}</span>
+                            <span>{maxPrice}</span>
                         </div>
                         <input 
                             type="range" 
@@ -135,10 +209,10 @@ function Catalog() {
                     </div>
                     <div style={{margin:" 1rem auto"}}>
                         <Button
-                            BtnText={"Submit"}
+                            BtnText={"Clear"}
                             size={"medium"}
                             color={"Black"}
-                            method={submitFilter}
+                            method={clearFilters}
                         />
                     </div>
                     
