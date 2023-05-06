@@ -9,6 +9,7 @@ import Catalog from "./pages/Catalog/Catalog"
 import UserProfile from "./pages/UserProfile/UserProfile"
 import CarList from './pages/CarList/CarList';
 import UploadLising from "./pages/UploadListing/UploadListing";
+import ViewRide from "./pages/ViewRide/ViewRide";
 
 function App() {
   
@@ -36,6 +37,10 @@ function App() {
     {
       path: "/carList",
       element: <CarList />
+    },
+    {
+      path: "/viewride",
+      element: <ViewRide />
     }
   ])
   return (
