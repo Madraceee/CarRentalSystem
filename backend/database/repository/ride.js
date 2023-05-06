@@ -57,6 +57,26 @@ class Ride extends RideSchema{
     });
   }
 
+  static getActiveRides(data){
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `SELECT * FROM Ride where rideStatus="Completed";`,
+          (err, result) => {
+            if (err) {
+              return reject(err + "->Database");
+            }
+            var activeRides = []
+            for(let i=0;i<result.length;i++){
+              const car = RideSchema.create(result[i]);
+              activeRides.push(car);
+            }
+            const payload = { msg: "Active Ride Details Found", activeRide: activeRides };
+            return resolve(payload);
+          });
+        }
+      );
+    }
+
 }
 
 export default Ride;

@@ -1,4 +1,4 @@
-class rideSchema {
+class RideSchema {
     constructor(rideID,lenderID,renterID, listingID, duration,distance, rideStatus) {
         this.rideID = rideID;
         this.lenderID = lenderID;
@@ -11,7 +11,7 @@ class rideSchema {
     }
   
     static create(data) {
-        return new rideSchema(
+        return new RideSchema(
           data.rideID,
           data.lenderID,
           data.renterID,
@@ -25,5 +25,5 @@ class rideSchema {
     
   }
   
-  export default rideSchema;
+  export default RideSchema;
   
