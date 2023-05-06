@@ -1,12 +1,13 @@
 class RideSchema {
-    constructor(rideID,lenderID,renterID, listingID, duration,distance, rideStatus) {
+    constructor(rideID,lenderID,renterID, listingID, distance, rideStatus,beginDate,endDate) {
         this.rideID = rideID;
         this.lenderID = lenderID;
         this.renterID = renterID;
         this.listingID = listingID;
-        this.duration = duration;
         this.distance = distance;
         this.rideStatus = rideStatus;
+        this.beginDate=beginDate;
+        this.endDate=endDate;
         
     }
   
@@ -16,9 +17,10 @@ class RideSchema {
           data.lenderID,
           data.renterID,
           data.listingID,
-          data.duration,
           data.distance,
-          data.rideStatus
+          data.rideStatus,
+          data.beginDate,
+          data.endDate
         );
       }
       
