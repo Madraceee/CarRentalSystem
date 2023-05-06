@@ -57,10 +57,10 @@ class Ride extends RideSchema{
     });
   }
 
-  static getActiveRides(data){
+  static getAllRides(data){
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT * FROM Ride where rideStatus="Completed";`,
+        `SELECT * FROM Ride ;`,
           (err, result) => {
             if (err) {
               return reject(err + "->Database");

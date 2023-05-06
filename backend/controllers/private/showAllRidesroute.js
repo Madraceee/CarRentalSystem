@@ -3,14 +3,14 @@ import Ride from "../../database/repository/ride.js";
 
 
 
-async function showActiveRides(data, res) {
+async function showAllRides(data, res) {
    
     try {
       
 
       const jsonData = JSON.parse(data.data); 
       const rideObj = RideSchema.create(jsonData)
-      const payload = await Ride.getActiveRides(rideObj);
+      const payload = await Ride.getAllRides(rideObj);
 
      
      let payloadStr = JSON.stringify(payload);
@@ -32,4 +32,4 @@ async function showActiveRides(data, res) {
   }  
 
 
-export default showActiveRides;
+export default showAllRides;

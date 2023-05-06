@@ -7,7 +7,7 @@ import showCarDetailsRoute from "./private/showCarDetailsRoute.js"
 import insertProfileRoute from "./private/insertProfileRoute.js"
 import insertRideRoute from "./private/insertRideRoute.js";
 import showRideRoute from "./private/showRideRoute.js"
-import showActiveRides from "./private/showActiveRideroute.js";
+import showAllRides from "./private/showAllRidesroute.js";
 import res from "express/lib/response.js";
 
 
@@ -20,7 +20,7 @@ const routes = {
     "insertProfile": async(data,res)=> insertProfileRoute(data,res),
     "insertRide" : async(data,res) => insertRideRoute(data,res),
     "showRide" : async(data,res) => showRideRoute(data,res),
-    "activeRide" : async(data,res) => showActiveRides(data,res)
+    "allRides" : async(data,res) => showAllRides(data,res)
     }
 
 export default routes;
