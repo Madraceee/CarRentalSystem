@@ -1,4 +1,3 @@
-import ProfileSchema from "../../database/model/profileSchema.js";
 import Profile from "../../database/repository/profile.js";
 import auth from "./auth.js";
 
@@ -10,7 +9,7 @@ async function displayRoute(data, res) {
     try {
       // Attempt to fetch profile details
       const jsonData = JSON.parse(data.data); 
-      const profileObj = ProfileSchema.create(jsonData)
+      const profileObj = Profile.create(jsonData)
       const payload = await Profile.profile(profileObj);
 
       //Do not send password for showProfile

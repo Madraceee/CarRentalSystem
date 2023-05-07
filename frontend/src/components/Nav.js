@@ -54,7 +54,7 @@ function Nav(){
                 handleBack = {()=>setShowOverlay(false)}
             />
             ): null} 
-        <img />
+        <img src={"/RSR.png"} alt="Logo" style={{width:"100px",height:"auto"}}/>
         <div className='nav--links'>
             <Link to="/">Home</Link>
             <Link to="/catalog">Catalog</Link>

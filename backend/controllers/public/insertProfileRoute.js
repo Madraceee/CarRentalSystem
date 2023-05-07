@@ -1,4 +1,3 @@
-import ProfileSchema from "../../database/model/profileSchema.js";
 import Profile from "../../database/repository/profile.js";
 
 
@@ -8,7 +7,7 @@ async function insertProfileRoute(data, res) {
     try {
 
         const jsonData = JSON.parse(data.data);
-        const profileObj = ProfileSchema.create(jsonData);
+        const profileObj = Profile.create(jsonData);
         // Extract car details from request body
               
           

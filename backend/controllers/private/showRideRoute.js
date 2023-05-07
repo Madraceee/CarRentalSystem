@@ -1,7 +1,4 @@
-import RideSchema from "../database/model/RideSchema.js";
 import Ride from "../../database/repository/ride.js";
-
-
 
 async function displayRide(data, res) {
    
@@ -9,7 +6,7 @@ async function displayRide(data, res) {
       
 
       const jsonData = JSON.parse(data.data); 
-      const rideObj = RideSchema.create(jsonData)
+      const rideObj = Ride.create(jsonData)
       const payload = await Ride.showRide(rideObj);
 
      

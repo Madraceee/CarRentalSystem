@@ -30,7 +30,6 @@ function UserProfile() {
                 throw err;
             });
 
-            console.log(response);
             setUserData(response.data.profileDetails);
         }
         catch (error) {

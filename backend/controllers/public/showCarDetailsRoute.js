@@ -1,4 +1,3 @@
-import CarListingSchema from "../../database/model/CarListingSchema.js";
 import Car from "../../database/repository/car.js";
 
 
