@@ -8,6 +8,7 @@ async function insertRideRoute(data, res) {
 
         const jsonData = JSON.parse(data.data);
         const rideObj = Ride.create(jsonData);
+
         
               const payload =    await Ride.insertRide(rideObj);
 

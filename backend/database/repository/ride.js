@@ -18,7 +18,7 @@ class Ride extends RideSchema{
         data.rideID = newRideID.toString();
         
         
-        const queryString = `INSERT INTO Ride(rideID, lenderID, renterID, listingID, duration, distance, rideStatus) VALUES('${data.rideID}', '${data.lenderID}', '${data.renterID}', '${data.listingID}', '${data.duration}', '${data.distance}', '${data.rideStatus}')`;
+        const queryString = `INSERT INTO Ride(rideID, lenderID, renterID, listingID, distance, rideStatus,beginDate,endDate) VALUES('${data.rideID}', '${data.lenderID}', '${data.renterID}', '${data.listingID}', '${data.distance}', '${data.rideStatus}','${data.beginDate}', '${data.endDate}' );`;
   
         connection.query(queryString, (err, result) => {
           if (err) {
@@ -56,6 +56,48 @@ class Ride extends RideSchema{
       });
     });
   }
+
+
+  static getAllRides(data){
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `SELECT * FROM Ride ;`,
+          (err, result) => {
+            if (err) {
+              return reject(err + "->Database");
+            }
+            var activeRides = []
+            for(let i=0;i<result.length;i++){
+              const car = RideSchema.create(result[i]);
+              activeRides.push(car);
+            }
+            const payload = { msg: "Active Ride Details Found", activeRide: activeRides };
+            return resolve(payload);
+          });
+        }
+      );
+    }
+
+    
+  static getRideFromID(data){
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `SELECT * FROM Ride where renterID='${data.renterID}'   OR lenderID= '${data.lenderID} ;`,
+          (err, result) => {
+            if (err) {
+              return reject(err + "->Database");
+            }
+            var activeRides = []
+            for(let i=0;i<result.length;i++){
+              const car = RideSchema.create(result[i]);
+              activeRides.push(car);
+            }
+            const payload = { msg: "Active Ride Details Found", activeRide: activeRides };
+            return resolve(payload);
+          });
+        }
+      );
+    }
 
 }
 

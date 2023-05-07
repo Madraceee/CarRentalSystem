@@ -6,6 +6,8 @@ import showCarDetailsRoute from "./public/showCarDetailsRoute.js"
 import insertProfileRoute from "./public/insertProfileRoute.js"
 import insertRideRoute from "./private/insertRideRoute.js";
 import showRideRoute from "./private/showRideRoute.js"
+import showAllRides from "./private/showAllRidesroute.js";
+
 
 
 const routes = {
@@ -16,7 +18,8 @@ const routes = {
     "displayCar": async(data,res)=> showCarDetailsRoute(data,res),
     "insertProfile": async(data,res)=> insertProfileRoute(data,res),
     "insertRide" : async(data,res) => insertRideRoute(data,res),
-    "showRide" : async(data,res) => showRideRoute(data,res)
+    "showRide" : async(data,res) => showRideRoute(data,res),
+    "allRides" : async(data,res) => showAllRides(data,res)
     }
 
 export default routes;
