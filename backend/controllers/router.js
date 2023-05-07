@@ -12,20 +12,25 @@ import getRidesFromID from "./private/getRideFromIDRoute.js"
 import addExtend from "./private/addExtendRoute.js";
 import viewExtend from "./private/viewExtendRoute.js";
 import updateExtend from "./private/updateExtendRoute.js";
+import endRide from "./private/endRideRoute.js";
 
 
 
 const routes = {
     "login" : async (data,res)=>loginRoute(data,res),
-    "showProfile": async (data,res) => displayRoute(data,res),
+    "showProfile": async (data,res) => displayRoute(data,res),   
+    "insertProfile": async(data,res)=> insertProfileRoute(data,res),
+
     "insertCar": async (data,res)=>insertCarDetailsRoute(data,res),
     "getUserCars": async (data,res)=>showUserCars(data,res),
     "displayCar": async(data,res)=> showCarDetailsRoute(data,res),
-    "insertProfile": async(data,res)=> insertProfileRoute(data,res),
+
     "insertRide" : async(data,res) => insertRideRoute(data,res),
     "showRide" : async(data,res) => showRideRoute(data,res),
     "allRides" : async(data,res) => showAllRides(data,res),
     "rideFromID" : async(data,res) => getRidesFromID(data,res),
+    "endRide": async(data,res)=> endRide(data,res),
+
     "notFound" :  (data,res)=>notFound(res),
     "addExtend": async(data,res) => addExtend(data,res),
     "viewExtend": async(data,res) => viewExtend(data,res),

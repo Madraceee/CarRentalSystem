@@ -98,6 +98,23 @@ class Ride extends RideSchema{
          }
        );
     }
+    
+    static endRide(data){
+      return new Promise((resolve, reject) => {
+        connection.query(
+          `UPDATE Ride SET rideStatus = 'Completed', distance = '${data.distance}' WHERE rideID = '${data.rideID}';
+          ;`,
+            (err, result) => {
+              if (err) {
+                return reject(err + "->Database");
+              }
+             
+              const payload = { msg: "Ride Ended" };
+              return resolve(payload);
+            });
+           }
+         );
+      }
 
 }
 
