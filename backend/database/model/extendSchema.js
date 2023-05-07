@@ -1,7 +1,8 @@
 class ExtendSchema {
-    constructor(rideID, renterID, requestDate, status) {
+    constructor(rideID, renterID, lenderID,requestDate, status) {
       this.rideID = rideID;
       this.renterID = renterID;
+      this.lenderID=lenderID;
       this.requestDate = requestDate;
       this.status = status;
     }
@@ -10,6 +11,7 @@ class ExtendSchema {
       return new ExtendSchema(
         data.rideID,
         data.renterID,
+        data.lenderID,
         data.requestDate,
         data.status
       );

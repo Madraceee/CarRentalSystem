@@ -9,6 +9,9 @@ import showRideRoute from "./private/showRideRoute.js"
 import showAllRides from "./private/showAllRidesroute.js";
 import showUserCars from "./private/showUserCars.js";
 import getRidesFromID from "./private/getRideFromIDRoute.js"
+import addExtend from "./private/addExtendRoute.js";
+import viewExtend from "./private/viewExtendRoute.js";
+import updateExtend from "./private/updateExtendRoute.js";
 
 
 
@@ -23,7 +26,10 @@ const routes = {
     "showRide" : async(data,res) => showRideRoute(data,res),
     "allRides" : async(data,res) => showAllRides(data,res),
     "rideFromID" : async(data,res) => getRidesFromID(data,res),
-    "notFound" :  (data,res)=>notFound(res)
+    "notFound" :  (data,res)=>notFound(res),
+    "addExtend": async(data,res) => addExtend(data,res),
+    "viewExtend": async(data,res) => viewExtend(data,res),
+    "updateExtend" : async(data,res) => updateExtend(data,res)
     }
 
 export default routes;
