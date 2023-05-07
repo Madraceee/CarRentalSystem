@@ -1,23 +1,18 @@
-import RideSchema from "../../database/model/RideSchema.js";
 import Ride from "../../database/repository/ride.js";
-
-
 
 async function getRidesFromID(data, res) {
    
     try {
       
-
       const jsonData = JSON.parse(data.data); 
-      const rideObj = RideSchema.create(jsonData)
+      const rideObj = Ride.create(jsonData)
       const payload = await Ride.getRideFromID(rideObj);
 
      
      let payloadStr = JSON.stringify(payload);
 
       res.setHeader("Content-Type", "application/json");
-
-    res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Origin", "*");
 
       if (payload.msg === "Ride Not Found") {
         res.writeHead(404);

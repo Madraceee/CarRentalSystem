@@ -3,7 +3,7 @@ import Car from "../../database/repository/car.js";
 import auth from "./auth.js";
 
 
-async function showCarDetailsRoute(data, res) {
+async function showUserCars(data, res) {
 
     const authStatus = await auth(data,res);
     if(authStatus.auth === true){
@@ -30,4 +30,4 @@ async function showCarDetailsRoute(data, res) {
 }
 
 
-export default showCarDetailsRoute;
+export default showUserCars;

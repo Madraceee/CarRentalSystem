@@ -7,19 +7,23 @@ import insertProfileRoute from "./public/insertProfileRoute.js"
 import insertRideRoute from "./private/insertRideRoute.js";
 import showRideRoute from "./private/showRideRoute.js"
 import showAllRides from "./private/showAllRidesroute.js";
+import showUserCars from "./private/showUserCars.js";
+import getRidesFromID from "./private/getRideFromIDRoute.js"
 
 
 
 const routes = {
     "login" : async (data,res)=>loginRoute(data,res),
     "showProfile": async (data,res) => displayRoute(data,res),
-    "notFound" :  (data,res)=>notFound(res),
     "insertCar": async (data,res)=>insertCarDetailsRoute(data,res),
+    "getUserCars": async (data,res)=>showUserCars(data,res),
     "displayCar": async(data,res)=> showCarDetailsRoute(data,res),
     "insertProfile": async(data,res)=> insertProfileRoute(data,res),
     "insertRide" : async(data,res) => insertRideRoute(data,res),
     "showRide" : async(data,res) => showRideRoute(data,res),
-    "allRides" : async(data,res) => showAllRides(data,res)
+    "allRides" : async(data,res) => showAllRides(data,res),
+    "rideFromID" : async(data,res) => getRidesFromID(data,res),
+    "notFound" :  (data,res)=>notFound(res)
     }
 
 export default routes;

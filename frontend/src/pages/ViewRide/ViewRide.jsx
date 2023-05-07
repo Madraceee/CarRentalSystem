@@ -7,7 +7,7 @@ import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { USER_CARS } from '../APIURL';
+import { GET_RIDE_GIVEN_ID } from '../APIURL';
 
 function ViewRide() {
     
@@ -16,27 +16,63 @@ function ViewRide() {
         navigate("/userprofile");
     }
 
-    const renter = {
-        id: "1234"
-    };
-    const lender = {
-        id: "1235"
-    };
-    const car = {
-        carname: "Wagonr"
-    };
+    const user = useSelector(store => store.user);
+    const [rides,setRides] = useState([]);
+    const getRides = async () =>{
+        try{
+            const response = await axios.options(GET_RIDE_GIVEN_ID)
+            .then(()=>{
+                let body = {}
+                if(user.role === "Renter"){
+                    body = {
+                        renterID : user.emailId
+                    }
+                }
+                else{
+                    body = {
+                        lenderID : user.emailId
+                    }
+                }
+                return axios.post(GET_RIDE_GIVEN_ID,body);
+            })
+            .catch(err=>{
+                throw err;
+            })
+  
+           
+            if(response.status === 200){
+                setRides(response.data.activeRide);
+            }
+            else{
+                console.log("Ride Error->",response.data);
+            }
+        }
+        catch(error){
+            console.log(error);
+        }
+    }   
+
+    useEffect(()=>{
+        if(user.emailId === ""){
+            navigate("/login");
+        }
+        getRides();
+    },[])
 
     return (
         <div className='rides-ctn'>
             <Nav />
                 <div className='rides-display'>
-                    <Ride
-                            renter={renter}
-                            car = {car}
-                            lender={lender}
-                            viewer={renter}
-                            deadline={"6-5-23 10:00"}
-                    />
+                    {  rides.length>0 && rides.map((ride,index)=>(
+                            <Ride
+                                renter={ride.renterID}
+                                lender={ride.lenderID}
+                                car={ride.listingID}
+                                deadline={ride.endDate}
+                                viewer={user.emailId}
+                            />
+                        ))
+                    }
                 </div>
             <Button
                 BtnText={"Back"}

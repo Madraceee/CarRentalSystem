@@ -86,6 +86,12 @@ function UserProfile() {
                             ):(null)
                         }
                         <Button
+                            BtnText={"View Rides"}
+                            size={"medium"}
+                            color="Pink"
+                            method={()=>navigate("/viewride")}
+                        />
+                        <Button
                             BtnText={"Home"}
                             size={"medium"}
                             color="Pink"

@@ -3,7 +3,7 @@ import "../css/BookCar.css";
 import Button from './Button';
 
 import axios from "axios";
-import { BOOK_CAR } from '../pages/APIURL';
+import { INSERT_RIDE } from '../pages/APIURL';
 import { useSelector } from 'react-redux';
 import Overlay from './Overlay';
 
@@ -11,25 +11,7 @@ function BookCar({carData,method,hideTab}) {
 
     const [from,setFrom] = useState(0);
     const [to,setTo] =  useState(0);
-    const [duration,setDuration] = useState(0);
 
-    const findDuration = ()=>{
-        let startDate;
-        if(method === "Book Now"){
-            startDate = new Date();
-        }
-        else{
-            startDate = new Date(from);
-        }        
-        const endDate = new Date(to);
-        const diffMs = endDate - startDate;
-        const diffSecs = Math.round(diffMs / 1000);
-        setDuration(diffSecs);
-    }
-
-    useEffect(()=>{
-        findDuration();
-    },[from,to]);
 
     //Overlay status
     const [showOverlay,setShowOverlay] = useState(false);
@@ -38,21 +20,31 @@ function BookCar({carData,method,hideTab}) {
 
     const user = useSelector(store=>store.user);
     const bookCar = async ()=>{
+
+        let beginDate = from;
+        let endDate = to;
+        beginDate = beginDate.replace("T"," ")
+        beginDate+=":00";
+        endDate = endDate.replace("T"," ")
+        endDate+=":00";
+
         try{
-            const response = await axios.options(BOOK_CAR)
+            const response = await axios.options(INSERT_RIDE)
             .then(()=>{
-                return axios.post(BOOK_CAR,{
+                return axios.post(INSERT_RIDE,{
                     lenderID: carData.lenderID,
                     renterID: user.emailId,
                     listingID: carData.listingID,
-                    duration: duration                  
+                    distance: "0",
+                    beginDate: beginDate ,
+                    endDate: endDate            
                 })
             })
             .catch(err=>{
                 throw err;
             })
 
-            if(response.data.msg === "Ride Created"){
+            if(response.status === 200){
                 setStatus(true);
                 setOverlayMsg("Ride Created");
                 setShowOverlay(true);
@@ -60,10 +52,11 @@ function BookCar({carData,method,hideTab}) {
 
         }
         catch(error){
+            setShowOverlay(true); 
             setStatus(false);
-            setOverlayMsg("Ride Not Created");
-            setShowOverlay(true);            
+            setOverlayMsg("Ride Not Created");                       
         }
+        
         
     }
 

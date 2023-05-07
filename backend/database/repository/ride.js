@@ -18,7 +18,7 @@ class Ride extends RideSchema{
         data.rideID = newRideID.toString();
         
         
-        const queryString = `INSERT INTO Ride(rideID, lenderID, renterID, listingID, distance, rideStatus,beginDate,endDate) VALUES('${data.rideID}', '${data.lenderID}', '${data.renterID}', '${data.listingID}', '${data.distance}', '${data.rideStatus}','${data.beginDate}', '${data.endDate}' );`;
+        const queryString = `INSERT INTO Ride(rideID, lenderID, renterID, listingID, distance, rideStatus,beginDate,endDate) VALUES('${data.rideID}', '${data.lenderID}', '${data.renterID}', '${data.listingID}', '${data.distance}', 'Pending','${data.beginDate}', '${data.endDate}' );`;
   
         connection.query(queryString, (err, result) => {
           if (err) {
@@ -82,7 +82,7 @@ class Ride extends RideSchema{
   static getRideFromID(data){
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT * FROM Ride where renterID='${data.renterID}'   OR lenderID= '${data.lenderID} ;`,
+        `SELECT * FROM Ride where ${ data.renterID ? ("renterID='"+data.renterID+"'") : ("lenderID='"+data.lenderID+"'") } ;`,
           (err, result) => {
             if (err) {
               return reject(err + "->Database");
@@ -95,8 +95,8 @@ class Ride extends RideSchema{
             const payload = { msg: "Active Ride Details Found", activeRide: activeRides };
             return resolve(payload);
           });
-        }
-      );
+         }
+       );
     }
 
 }

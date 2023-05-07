@@ -1,8 +1,8 @@
 class RideSchema {
     constructor(rideID,lenderID,renterID, listingID, distance, rideStatus,beginDate,endDate) {
         this.rideID = rideID;
-        this.lenderID = lenderID;
-        this.renterID = renterID;
+        this.lenderID = lenderID ? lenderID : null;
+        this.renterID = renterID ? renterID : null;
         this.listingID = listingID;
         this.distance = distance;
         this.rideStatus = rideStatus;
