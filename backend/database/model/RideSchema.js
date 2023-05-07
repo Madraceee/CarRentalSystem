@@ -28,4 +28,3 @@ class RideSchema {
   }
   
   export default RideSchema;
-  

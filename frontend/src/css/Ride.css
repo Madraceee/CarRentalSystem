@@ -1,0 +1,46 @@
+.ridecard{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+
+    background-color: white;
+    color: black;
+
+    padding: 1rem 2rem;
+    margin: 5px auto;
+    border: 1px solid black;
+    border-radius: 15px;    
+}
+
+.car-image{
+    min-height: 80px;
+    max-height: 80px;
+    max-width: 80px;
+    max-height: 80px;
+}
+
+
+.ride-details{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 1rem;
+    min-width: 50%;
+    max-width: 50%;
+}
+
+
+.ride-name{
+    font-size: 1.5rem;
+    font-family: 700;
+}
+
+.cardcard-btnctn{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+}

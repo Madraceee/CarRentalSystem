@@ -1,4 +1,3 @@
-import ProfileSchema from "../../database/model/profileSchema.js";
 import Profile from "../../database/repository/profile.js";
 
 
@@ -8,12 +7,12 @@ async function insertProfileRoute(data, res) {
     try {
 
         const jsonData = JSON.parse(data.data);
-        const profileObj = ProfileSchema.create(jsonData);
+        const profileObj = Profile.create(jsonData);
         // Extract car details from request body
               
           
               // Insert car details into database
-              const payload =    await Profile.insertProfile(profileObj);
+              const payload =  await Profile.insertProfile(profileObj);
 
 
               res.setHeader("Content-Type", "application/json");
@@ -27,6 +26,9 @@ async function insertProfileRoute(data, res) {
             } catch (error) {
               console.error(error);
               console.log("Insert Profile Error:" + error);
+              res.writeHead(500);
+              res.write('Profile insertion unsuccessfull!');
+              res.end("\n");
             }
           };
           

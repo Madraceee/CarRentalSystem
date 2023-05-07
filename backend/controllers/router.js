@@ -1,14 +1,13 @@
 import { loginRoute } from "./public/LoginRoute.js";
 import notFound from "./notFound.js";
-import auth from "./private/auth.js";
 import displayRoute from "./private/showProfileRoute.js";
 import insertCarDetailsRoute from "./private/insertCarDetailsRoute.js"
-import showCarDetailsRoute from "./private/showCarDetailsRoute.js"
-import insertProfileRoute from "./private/insertProfileRoute.js"
+import showCarDetailsRoute from "./public/showCarDetailsRoute.js"
+import insertProfileRoute from "./public/insertProfileRoute.js"
 import insertRideRoute from "./private/insertRideRoute.js";
 import showRideRoute from "./private/showRideRoute.js"
 import showAllRides from "./private/showAllRidesroute.js";
-import res from "express/lib/response.js";
+
 
 
 const routes = {

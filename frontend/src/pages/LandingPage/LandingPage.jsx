@@ -4,9 +4,11 @@ import "./LandingPage.css";
 import Button from '../../components/Button';
 import Nav from "../../components/Nav";
 import Footer from '../../components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 
 function LandingPage() {
+    const navigate = useNavigate();
   return (
     <div className='landingPage'>        
         <header className='landingPage--herocard'>
@@ -25,6 +27,7 @@ function LandingPage() {
                     BtnText={"Book Ride"}
                     size={"medium"}
                     color="Pink"
+                    method={()=>navigate("/catalog")}
                 />
             </div>
             <div>
@@ -38,6 +41,7 @@ function LandingPage() {
                     BtnText={"Lend Ride"}
                     size={"medium"}
                     color="Pink"
+                    method={()=>navigate("/userprofile")}
                 />
             </div>
         </div>

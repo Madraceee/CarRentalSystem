@@ -57,6 +57,7 @@ class Ride extends RideSchema{
     });
   }
 
+
   static getAllRides(data){
     return new Promise((resolve, reject) => {
       connection.query(

@@ -5,14 +5,14 @@ function Footer() {
   return (
     <footer>
         <div className="social-icons">
-            <a href="https://github.com/Madraceee/CarRentalSystem"><img src="/github-logo.png"/></a>
+            <a href="https://github.com/Madraceee/CarRentalSystem"><img src="/github-logo.png" alt="Github"/></a>
         </div>
-        <div class="footer-links">
-            <a href="#">Info</a>
-            <a href="#">Support</a>
-            <a href="#">Marketing</a>
-        </div>
-        <div class="copyright">
+        {/* <div className="footer-links">
+            <a href="https://www.google.com">Info</a>
+            <a href="https://www.google.com">Support</a>
+            <a href="https://www.google.com">Marketing</a>
+        </div> */}
+        <div className="copyright">
             <span>&copy; 2023 RSR Rentals. All Rights Reserved.</span>
         </div>
 </footer>

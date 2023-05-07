@@ -2,10 +2,10 @@ footer{
     background-color: #1e1e1e;
     color: #62a3d2;
     margin: 0;
-    padding: 10px 0;
-
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 footer div{

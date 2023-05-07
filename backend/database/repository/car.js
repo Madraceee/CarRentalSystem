@@ -2,7 +2,7 @@ import CarListingSchema from "../model/CarListingSchema.js";
 import connection from "../index.js";
 
 class Car extends CarListingSchema {
-  static async showCarDetails(data) {
+  static async showCarDetails(params) {
     try {
       const result = await new Promise((resolve, reject) => {
         connection.query(
@@ -16,14 +16,18 @@ class Car extends CarListingSchema {
         );
       });
      
-        const car = CarListingSchema.create(result[result.length-1]);
-        const data = { msg: "Car Details Found", carDetails: car };
+        var cars = []
+        for(let i=0;i<result.length;i++){
+          const car = CarListingSchema.create(result[i]);
+          cars.push(car);
+        }
+        const data = { msg: "Car Details Found", carDetails: cars };
         return data;
       
       }
      catch (err) {
       const data = { err: "Database Error" };
-      return data;
+      reject(data);
     }
   }
 
@@ -40,7 +44,7 @@ class Car extends CarListingSchema {
           const newListingID = maxListingID + 1;
           data.listingID = newListingID.toString();
           
-          const queryString = `INSERT INTO CARS(listingID, lenderID, carModel, carType, carCondition, location, imageURL) VALUES('${data.listingID}', '${data.lenderID}', '${data.carModel}', '${data.carType}', '${data.carCondition}', '${data.location}', '${data.imageURL}')`;
+          const queryString = `INSERT INTO CARS(listingID, lenderID, carname, type, carCondition,imageURL,address,city,price) VALUES('${data.listingID}', '${data.lenderID}', '${data.carname}', '${data.type}', '${data.carCondition}','${data.imageURL}','${data.address}','${data.city}',${data.price})`;
   
           connection.query(queryString, (err, result) => {
             if (err) {
@@ -52,11 +56,26 @@ class Car extends CarListingSchema {
       );
     });
   }
-  
-  
 
-
-
+  static getUserCars(data){
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `SELECT * FROM CARS where lenderID='${data.emailId}';`,
+          (err, result) => {
+            if (err) {
+              return reject(err + "->Database");
+            }
+            var cars = []
+            for(let i=0;i<result.length;i++){
+              const car = CarListingSchema.create(result[i]);
+              cars.push(car);
+            }
+            const payload = { msg: "Car Details Found", carDetails: cars };
+            return resolve(payload);
+          });
+        }
+      );
+    }
 }
 
 export default Car;
