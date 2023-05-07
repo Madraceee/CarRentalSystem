@@ -13,7 +13,7 @@ import addExtend from "./private/addExtendRoute.js";
 import viewExtend from "./private/viewExtendRoute.js";
 import updateExtend from "./private/updateExtendRoute.js";
 import endRide from "./private/endRideRoute.js";
-
+import approveRide from "./private/approveRideRoute.js";
 
 
 const routes = {
@@ -29,6 +29,7 @@ const routes = {
     "showRide" : async(data,res) => showRideRoute(data,res),
     "allRides" : async(data,res) => showAllRides(data,res),
     "rideFromID" : async(data,res) => getRidesFromID(data,res),
+    "approveRide" : async(data,res) => approveRide(data,res),
     "endRide": async(data,res)=> endRide(data,res),
 
     "notFound" :  (data,res)=>notFound(res),
