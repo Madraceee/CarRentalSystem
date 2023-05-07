@@ -116,6 +116,22 @@ class Ride extends RideSchema{
          );
       }
 
+      static approveRide(data){
+        return new Promise((resolve, reject) => {
+          connection.query(
+            `UPDATE Ride SET rideStatus = 'Active' WHERE rideID = '${data.rideID}';
+            ;`,
+              (err, result) => {
+                if (err) {
+                  return reject(err + "->Database");
+                }
+               
+                const payload = { msg: "Ride Set to Active" };
+                return resolve(payload);
+              });
+             }
+           );
+        }
 }
 
 export default Ride;

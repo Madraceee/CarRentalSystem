@@ -31,6 +31,7 @@ const routes = {
     "showRide" : async(data,res) => showRideRoute(data,res),
     "allRides" : async(data,res) => showAllRides(data,res),
     "rideFromID" : async(data,res) => getRidesFromID(data,res),
+    "approveRide" : async(data,res) => approveRide(data,res),
     "endRide": async(data,res)=> endRide(data,res),
 
     "addExtend": async(data,res) => addExtend(data,res),
