@@ -76,6 +76,27 @@ class Car extends CarListingSchema {
         }
       );
     }
+
+    static getNameImgFromID(data){
+      return new Promise((resolve, reject) => {
+        connection.query(
+          `SELECT * FROM CARS where listingID='${data.listingID}';`,
+            (err, result) => {
+              if (err) {
+                return reject(err + "->Database");
+              }
+              var cars = []
+              for(let i=0;i<result.length;i++){
+                const car = CarListingSchema.create(result[i]);
+                cars.push(car);
+              }
+              const payload = { msg: "Car Details Found", carName: cars[0].carname, carImgURL: cars[0].imageURL };
+              return resolve(payload);
+            });
+          }
+        );
+      }
+
 }
 
 export default Car;
