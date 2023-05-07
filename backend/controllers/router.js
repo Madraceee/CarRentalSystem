@@ -13,6 +13,7 @@ import addExtend from "./private/addExtendRoute.js";
 import viewExtend from "./private/viewExtendRoute.js";
 import updateExtend from "./private/updateExtendRoute.js";
 import endRide from "./private/endRideRoute.js";
+import getNameImgFromID from "./public/getNameImgFromIDRoute.js";
 
 
 
@@ -24,6 +25,7 @@ const routes = {
     "insertCar": async (data,res)=>insertCarDetailsRoute(data,res),
     "getUserCars": async (data,res)=>showUserCars(data,res),
     "displayCar": async(data,res)=> showCarDetailsRoute(data,res),
+    "getCarNameImg": async(data,res) => getNameImgFromID(data,res),
 
     "insertRide" : async(data,res) => insertRideRoute(data,res),
     "showRide" : async(data,res) => showRideRoute(data,res),
@@ -31,10 +33,11 @@ const routes = {
     "rideFromID" : async(data,res) => getRidesFromID(data,res),
     "endRide": async(data,res)=> endRide(data,res),
 
-    "notFound" :  (data,res)=>notFound(res),
     "addExtend": async(data,res) => addExtend(data,res),
     "viewExtend": async(data,res) => viewExtend(data,res),
-    "updateExtend" : async(data,res) => updateExtend(data,res)
+    "updateExtend" : async(data,res) => updateExtend(data,res),
+
+    "notFound" :  (data,res)=>notFound(res)
     }
 
 export default routes;
