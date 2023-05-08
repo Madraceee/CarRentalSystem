@@ -39,6 +39,18 @@
 
 .bgBlackTextWhite{
     background-color: rgb(29, 29, 29) ;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+
+.bgRedTextWhite{
+    background-color: red;
     color: rgb(224, 224, 224);
+    font-weight: 600;
+}
+
+.bgGreenTextWhite{
+    background-color: rgba(51, 255, 24, 0.89);
+    color: rgb(255, 255, 255);
     font-weight: 600;
 }

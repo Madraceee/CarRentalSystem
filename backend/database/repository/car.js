@@ -85,12 +85,7 @@ class Car extends CarListingSchema {
               if (err) {
                 return reject(err + "->Database");
               }
-              var cars = []
-              for(let i=0;i<result.length;i++){
-                const car = CarListingSchema.create(result[i]);
-                cars.push(car);
-              }
-              const payload = { msg: "Car Details Found", carName: cars[0].carname, carImgURL: cars[0].imageURL };
+              const payload = { msg: "Car Details Found", carName: result[0].carname, carImgURL: result[0].imageURL, price: result[0].price };
               return resolve(payload);
             });
           }

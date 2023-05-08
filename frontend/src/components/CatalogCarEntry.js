@@ -17,7 +17,7 @@ const CatalogCarEntry = ({car,setBookTab,display}) => {
             </div>
             <div className='carcard-price'>
                 <span>Price</span>
-                <span>{car.price}/hr</span>
+                <span>{car.price}/km</span>
             </div>
             { display && 
                 (<div className='cardcard-btnctn'>                

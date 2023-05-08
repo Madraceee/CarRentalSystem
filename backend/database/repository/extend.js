@@ -1,7 +1,5 @@
 import ExtendSchema from "../model/extendSchema.js";
-import connection from "../index.js"
-import { resolve } from "url";
-import { rejects } from "assert";
+import connection from "../index.js";
 
 class Extend extends ExtendSchema{
 
@@ -28,7 +26,7 @@ class Extend extends ExtendSchema{
   static viewExtend(data){
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT * FROM Extend where lenderID = '${ data.lenderID}' AND status = 'Requested' ;`,
+        `SELECT * FROM Extend where lenderID = '${ data.lenderID}' AND rideID= '${data.rideID}' AND status = 'Requested' ;`,
           (err, result) => {
             if (err) {
               return reject(err + "->Database");
@@ -78,26 +76,20 @@ class Extend extends ExtendSchema{
             }
 
             if(data.status== 'Rejected')
-            {
-                connection.query(
-                    `UPDATE Ride SET rideStatus = 'Completed', distance = '${data.distance}' WHERE rideID = '${data.rideID}';
-                    ;`,
-                      (err, result) => {
-                        if (err) {
-                          return reject(err + "->Database");
-                        }
-                        
-                        
-                        const payload = { msg: "Distance Added and Ride Completed"};
-                        return resolve(payload);
-                      }); 
+            {           
 
-                      connection.query(
-                        `UPDATE Extend set status = '${data.status}' WHERE rideID = '${data.rideID}' ;`,
-                          (err, result) => {
-                          
-                            }
-                         );
+              connection.query(
+                `UPDATE Extend set status = '${data.status}' WHERE rideID = '${data.rideID}' ;`,
+                  (err, result) => {
+                    if (err) {
+                      return reject(err + "->Database");
+                    }
+                    
+                    
+                    const payload = { msg: "Extend Rejected"};
+                    return resolve(payload);
+                    }
+                  );
 
             }
 

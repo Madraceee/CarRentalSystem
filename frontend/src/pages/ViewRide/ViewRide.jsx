@@ -62,18 +62,15 @@ function ViewRide() {
     return (
         <div className='rides-ctn'>
             <Nav />
-                <div className='rides-display'>
-                    {  rides.length>0 && rides.map((ride,index)=>(
-                            <Ride
-                                renter={ride.renterID}
-                                lender={ride.lenderID}
-                                car={ride.listingID}
-                                deadline={ride.endDate}
-                                viewer={user.emailId}
-                            />
-                        ))
-                    }
-                </div>
+            <div className='rides-display'>
+                {  rides.length>0 && rides.map((ride,index)=>(
+                        <Ride
+                            ride = {ride}
+                            getRides={getRides}
+                        />
+                    ))
+                }
+            </div>
             <Button
                 BtnText={"Back"}
                 size={"medium"}

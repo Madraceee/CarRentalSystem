@@ -9,8 +9,8 @@ import Overlay from './Overlay';
 
 function BookCar({carData,method,hideTab}) {
 
-    const [from,setFrom] = useState(0);
-    const [to,setTo] =  useState(0);
+    const [from,setFrom] = useState("");
+    const [to,setTo] =  useState("");
 
 
     //Overlay status
@@ -21,8 +21,24 @@ function BookCar({carData,method,hideTab}) {
     const user = useSelector(store=>store.user);
     const bookCar = async ()=>{
 
-        let beginDate = from;
-        let endDate = to;
+        let dateString = ""
+        if(from === ""){
+            let date = new Date();
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            month = month < 10 ? `0${month}` : month;
+            day = day < 10 ? `0${day}` : day;
+            hour = hour < 10 ? `0${hour}` : hour;
+            minute = minute < 10 ? `0${minute}` : minute;
+            dateString = `${year}-${month}-${day}T${hour}:${minute}`;
+            setFrom(dateString);
+        }
+
+        let beginDate = from === "" ? dateString : from;
+        let endDate = to; 
         beginDate = beginDate.replace("T"," ")
         beginDate+=":00";
         endDate = endDate.replace("T"," ")

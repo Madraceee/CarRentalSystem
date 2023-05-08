@@ -42,3 +42,19 @@
     align-items: center;
     height: 90px;
 }
+
+.flex-col{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.ride-btn-ctn *{
+    margin: 0.2rem auto
+}

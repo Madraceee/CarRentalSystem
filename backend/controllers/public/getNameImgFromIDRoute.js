@@ -1,4 +1,4 @@
-import Ride from "../../database/repository/car.js";
+import Car from "../../database/repository/car.js";
 
 async function getNameImgFromID(data, res) {
    
@@ -6,7 +6,7 @@ async function getNameImgFromID(data, res) {
       
       const jsonData = JSON.parse(data.data); 
       const carObj = Car.create(jsonData)
-      const payload = await Ride.getRideFromID(carObj);
+      const payload = await Car.getNameImgFromID(carObj);
 
      
      let payloadStr = JSON.stringify(payload);

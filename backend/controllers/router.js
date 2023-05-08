@@ -14,6 +14,7 @@ import viewExtend from "./private/viewExtendRoute.js";
 import updateExtend from "./private/updateExtendRoute.js";
 import endRide from "./private/endRideRoute.js";
 import getNameImgFromID from "./public/getNameImgFromIDRoute.js";
+import approveRide from "./private/approveRideRoute.js";
 
 
 
