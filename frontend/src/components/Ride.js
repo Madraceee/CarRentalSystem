@@ -69,7 +69,7 @@ const Ride = ({ride,getRides}) => {
                     rideID: ride.rideID,
                     renterID: ride.renterID,
                     lenderID: ride.lenderID,
-
+                    requestDate: extendDate
                 })
             })
 

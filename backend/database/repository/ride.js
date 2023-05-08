@@ -82,7 +82,7 @@ class Ride extends RideSchema{
   static getRideFromID(data){
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT * FROM Ride where ${ data.renterID ? ("renterID='"+data.renterID+"'") : ("lenderID='"+data.lenderID+"'") } ;`,
+        `SELECT * FROM Ride where ${ data.renterID ? ("renterID='"+data.renterID+"'") : ("lenderID='"+data.lenderID+"'") } ORDER BY rideID DESC;`,
           (err, result) => {
             if (err) {
               return reject(err + "->Database");
