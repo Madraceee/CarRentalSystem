@@ -6,7 +6,7 @@ class Car extends CarListingSchema {
     try {
       const result = await new Promise((resolve, reject) => {
         connection.query(
-          `SELECT * FROM CARS WHERE listingID IN (SELECT listingID from Ride WHERE rideStatus='Completed') OR listingID NOT IN (SELECT listingID from Ride);`,
+          `SELECT * FROM CARS WHERE listingID NOT IN (SELECT listingID from Ride WHERE rideStatus='Pending' OR rideStatus='Active');`,
           (err, result) => {
             if (err) {
               reject(err + "->Database");
